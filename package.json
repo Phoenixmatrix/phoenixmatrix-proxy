@@ -6,7 +6,7 @@
   "window": {
     "icon": "icon.png",
     "show": true,
-    "toolbar": false,
+    "toolbar": true,
     "width": 1000,
     "height": 660,
     "min_width": 800,
@@ -20,7 +20,7 @@
   "license": "MIT",
   "dependencies": {
     "6to5": "^3.0.2",
-    "bluebird": "^2.3.11",
+    "bluebird": "=2.3.11",
     "connect": "~3.1.1",
     "gulp-less": "^2.0.1",
     "lodash": "^3.0.1",
