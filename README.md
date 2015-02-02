@@ -3,7 +3,7 @@ PhoenixMatrix web development proxy
 
 _v0.1 technical preview_
 
-Web debugging proxy in the spirit of Fiddler and Charles Proxy, written in JavaScript with [nw.js](http//nwjs.io/)
+Web debugging proxy in the spirit of Fiddler and Charles Proxy, written in JavaScript with [nw.js](http://nwjs.io/)
 and node.
 
 Tested on MacOSX Yosemite, Windows 8.1 and Ubuntu 14, with caveats*
