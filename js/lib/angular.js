@@ -1,0 +1,1 @@
+export default global.window.angular;

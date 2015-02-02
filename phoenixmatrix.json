@@ -1,0 +1,6 @@
+{
+  "includeConnect": false,
+  "proxyPort": 3002,
+  "httpsProxyPort": 8443,
+  "certificateExpiration": 364
+}

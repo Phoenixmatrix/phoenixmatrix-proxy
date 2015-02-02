@@ -1,0 +1,183 @@
+@import (reference) "../vendor/bootstrap/less/mixins.less";
+@import (reference) "../vendor/bootstrap/less/variables.less";
+
+@splitPosition: 460px;
+
+body, html {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  overflow: hidden;
+}
+
+.view-wrapper, .main-section {
+  width: 100%;
+  height: 100%;
+}
+
+.header-section {
+  padding-right: 15px;
+}
+
+.left-section {
+  width: 100%;
+  position: absolute;
+  overflow: hidden;
+  top: 50px;
+  bottom: 20px;
+
+  .button-toolbar {
+    width: 80px;
+    background-color: #f8f8f8;
+    border-right: 1px solid #a9a9a9;
+    height: 100%;
+    float: left;
+    display: block;
+    padding-left: 0px;
+    li {
+      cursor: pointer;
+      display: block;
+      height: 80px;
+      padding: 25px;
+      font-size: 30px;
+      border-bottom: 1px solid darkgray;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: auto;
+
+      &.selected  {
+        background-color: @brand-primary;
+        color: #fff;
+      }
+    }
+  }
+
+  .requests {
+    height: 100%;
+  }
+
+  .request-list-scroll {
+    position: relative;
+    overflow: auto;
+    height: 100%;
+    overflow-x: hidden;
+  }
+
+  ul.request-list {
+    list-style-type: none;
+    display: block;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    margin-bottom: 0px;
+    padding-left: 0px;
+
+    li.request-item {
+      cursor: pointer;
+      padding: 5px;
+      border-bottom: 1px dotted black;
+      white-space: nowrap;
+      &:hover, &.selected-request, &.selected-request:hover {
+        background-color: @brand-primary;
+        color: #fff;
+
+        &.error-request {
+          color: #ff0000;
+        }
+      }
+
+      &.error-request {
+        color: #ff0000;
+      }
+    }
+
+    .request-properties > span {
+      display: inline-block;
+      margin-right: 3px;
+      font-weight: bold;
+    }
+
+    .request-status-code {
+      width: 24px;
+    }
+
+    .request-method {
+      min-width: 67px;
+    }
+
+    .request-path {
+      overflow: hidden;
+      white-space:nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .pending-request {
+    opacity: 0.5
+  }
+}
+
+.content-section {
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px;
+  position: absolute;
+  top: 50px;
+  bottom: 20px;
+  right: 0px;
+}
+
+.footer-section {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 20px;
+  background-color: #3b3b3b;
+  border-top: 3px solid #428bca;
+}
+
+.headers-list {
+  overflow: hidden;
+
+  .panel-heading {
+    border-bottom: 0px;
+  }
+}
+
+.headers-list, .request-body, .response-body {
+  .panel-heading {
+    cursor: pointer;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+  }
+
+  .panel-body {
+    word-break: break-all;
+  }
+}
+
+.response-body {
+  textarea {
+    width: 100%;
+    height: 300px;
+  }
+}
+
+/* -- overrides for initial positioning of the split handle */
+.main-section .split-panes.horizontal {
+  & > .split-handler {
+    left: @splitPosition;
+  }
+
+  & > .split-pane1 {
+    width: @splitPosition;
+  }
+
+  & > .split-pane2 {
+    border-left: 3px solid #428bca;
+    left: @splitPosition;
+  }
+}
+
+

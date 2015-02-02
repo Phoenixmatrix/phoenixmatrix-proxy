@@ -1,0 +1,5 @@
+node_modules
+.idea
+certificate
+npm-debug.log
+dist
