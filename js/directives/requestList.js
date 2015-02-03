@@ -16,7 +16,8 @@ export default function () {
         'request-item': true,
         'selected-request': this.props.selected,
         'pending-request': request.state !== 'response' && request.method !== 'CONNECT',
-        'error-request': request.statusCode >= 400 || request.error
+        'error-request': request.statusCode >= 400 || request.error,
+        'cached-request' : request.statusCode === 304
       });
 
       return React.DOM.li({className: classes, style: { height: ITEM_HEIGHT + 'px' }, onClick: this.handleClick},

@@ -62,6 +62,10 @@ export default function() {
       return filteredRequests;
     },
 
+    getRequest: function(id) {
+      return requestsMap[id];
+    },
+
     clear: function() {
       requests = [];
       filteredRequests = [];

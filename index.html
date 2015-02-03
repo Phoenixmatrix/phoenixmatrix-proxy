@@ -41,14 +41,13 @@
       <bg-pane min-size="200">
         <div class="content-section">
           <div class="request-detail" ng-if="selectedRequest">
+            <div ng-include="'views/request-header.html'"></div>
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h4>Request</h4>
               </div>
               <div class="panel-body">
-                <h5 ng-bind="selectedRequest.url"></h5>
-
-                <div class="panel panel-primary headers-list" ng-if="selectedRequest.headers.length > 0">
+                <div class="panel panel-primary headers-list" ng-if="selectedRequest.headers">
                   <div class="panel-heading" ng-click="collapseRequestHeaders = !collapseRequestHeaders">
                     Headers
                   </div>

@@ -10,6 +10,10 @@ export default ['$scope', '$timeout', '$window', 'requests', function($scope, $t
   var pushData = (data) => {
     if(!this.paused && data.id) {
       requests.addOrUpdate(data);
+      if($scope.selectedRequest && $scope.selectedRequest.id && $scope.selectedRequest.id === data.id) {
+        $scope.selectedRequest = requests.getRequest(data.id);
+      }
+
       $scope.proxy.requests = requests.getView();
       $scope.$digest();
     }

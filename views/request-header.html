@@ -1,0 +1,10 @@
+<div class="request-header" ng-class="{ well: (!selectedRequest.statusCode || selectedRequest.statusCode < 400) && !selectedRequest.error,  'alert alert-danger': selectedRequest.error || selectedRequest.statusCode >= 400 }">
+  <div class="request-properties">
+    <span ng-bind="selectedRequest.statusCode"></span>
+    <span ng-bind="selectedRequest.method"></span>
+    <span ng-bind="(request.isSSL ? 'https://' : 'http://') + selectedRequest.host"></span><span ng-bind="request.port ? (':' + request.port) : ''"></span>
+  </div>
+  <div class="request-url">
+    <span ng-bind="selectedRequest.path"></span>
+  </div>
+</div>

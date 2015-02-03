@@ -88,6 +88,10 @@ body, html {
       &.error-request {
         color: #ff0000;
       }
+
+      &.cached-request {
+        opacity: 0.5;
+      }
     }
 
     .request-properties > span {
@@ -177,6 +181,20 @@ body, html {
   & > .split-pane2 {
     border-left: 3px solid #428bca;
     left: @splitPosition;
+  }
+}
+
+/* -- request header -- */
+.request-header {
+  max-height: 300px;
+  overflow-y: auto;
+
+  span {
+    word-wrap:break-word;
+  }
+
+  .request-properties {
+    font-weight: bold;
   }
 }
 
