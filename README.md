@@ -3,7 +3,7 @@ PhoenixMatrix web development proxy
 
 [![Join the chat at https://gitter.im/Phoenixmatrix/phoenixmatrix-proxy](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Phoenixmatrix/phoenixmatrix-proxy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-_v0.1 technical preview_
+_v0.1.1 technical preview_
 
 Web debugging proxy in the spirit of Fiddler and Charles Proxy, written in JavaScript with [nw.js](http://nwjs.io/)
 and node.
