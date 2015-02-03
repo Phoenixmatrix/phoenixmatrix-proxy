@@ -55,7 +55,7 @@ be configured in the Trusted Certificate Authorities (you can just double click 
 
 PhoenixMatrix uses a certificate authority to generate individual server certificates, so only the one certificate needs to be installed.
 
-*if your pages aren't loading*: If after installing the certificate in your browser, pages aren't loading, close PhoenixMatrix and restart it. Seems like the invalid certificate
+**if your pages aren't loading**: If after installing the certificate in your browser, pages aren't loading, close PhoenixMatrix and restart it. Seems like the invalid certificate
 behavior of some browsers leave the proxy in a weird state
 
 ### Configuration
