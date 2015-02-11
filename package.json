@@ -6,7 +6,7 @@
   "window": {
     "icon": "icon.png",
     "show": true,
-    "toolbar": false,
+    "toolbar": true,
     "width": 1000,
     "height": 660,
     "min_width": 800,
@@ -26,7 +26,7 @@
     "lodash": "^3.0.1",
     "mkdirp": "^0.5.0",
     "node-uuid": "~1.4.1",
-    "nodewebkit": "^0.8.6",
+    "nodewebkit": "^0.11.6",
     "react": "^0.12.2",
     "gulp": "^3.8.10",
     "gulp-6to5": "^2.0.2",
