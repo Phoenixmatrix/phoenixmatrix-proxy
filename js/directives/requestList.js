@@ -1,7 +1,7 @@
 import React from 'react/addons';
 
 const ITEM_HEIGHT = 50;
-const BUFFER_SIZE = 10;
+const BUFFER_SIZE = 100;
 
 export default function () {
   var PureRenderMixin = React.addons.PureRenderMixin;
