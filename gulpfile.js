@@ -36,15 +36,10 @@ gulp.task('build:js', function() {
 
 gulp.task('build', ['build:js', 'build:styles']);
 
-gulp.task('build:post', function() {
-  return gulp.src('./node_modules/nodewebkit/package.json', {read: false})
-    .pipe(clean());
-});
-
 gulp.task('run', function() {
-  exec(path.normalize('./node_modules/.bin/nodewebkit'));
+  exec(path.normalize('./node_modules/.bin/electron') + ' .');
 });
 
 gulp.task('default', function(cb) {
-  return runSequence('build', 'build:post', 'run', cb);
+  return runSequence('build', 'run', cb);
 });
