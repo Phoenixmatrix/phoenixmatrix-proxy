@@ -1,14 +1,14 @@
 import Promise from 'bluebird';
-import fs from 'fs';
+import fsOrig from 'fs';
 import { spawn } from 'child_process';
 
-import mkdirp from 'mkdirp';
+import mkdirpOrig from 'mkdirp';
 import helpers from './helpers';
 import _  from 'lodash';
 import config from './config';
 
-fs = Promise.promisifyAll(fs);
-mkdirp = Promise.promisify(mkdirp);
+let fs = Promise.promisifyAll(fsOrig);
+let mkdirp = Promise.promisify(mkdirpOrig);
 
 let directory = './certificate/';
 let conf = './openssl.cnf';
@@ -98,9 +98,8 @@ let getServerCertificate = Promise.coroutine(function* (domain) {
   let { keyPath, certPath } = keyPairPaths(domain);
 
   let result = null;
-
-  let exists = yield helpers.exists(keyPath, certPath);
-  if(exists) {
+  let found = yield helpers.exists(keyPath, certPath);
+  if(found) {
     result = yield readKeyPair(domain);
   }
 

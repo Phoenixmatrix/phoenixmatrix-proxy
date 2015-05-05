@@ -2,7 +2,7 @@
 
 var gulp = require('gulp'),
   watch = require('gulp-watch'),
-  to5 = require('gulp-6to5'),
+  babel = require('gulp-babel'),
   runSequence = require('run-sequence'),
   sourcemaps = require('gulp-sourcemaps'),
   clean = require('gulp-clean'),
@@ -10,6 +10,17 @@ var gulp = require('gulp'),
   path = require('path');
 
 var exec = require('child_process').exec;
+
+var babelOptions = {
+  blacklist: [
+    'es6.constants',
+    'es6.blockScoping',
+    'es6.spec.blockScoping',
+    'es6.spec.symbols',
+    'es6.spec.templateLiterals',
+    'regenerator'
+  ]
+};
 
 gulp.task('clean', function() {
   return gulp.src('./dist', {read: false})
@@ -29,22 +40,17 @@ gulp.task('rebuild', function(cb) {
 gulp.task('build:js', function() {
   return gulp.src(['./js/**/*.js'])
     .pipe(sourcemaps.init())
-    .pipe(to5())
+    .pipe(babel(babelOptions))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('dist'));
 });
 
 gulp.task('build', ['build:js', 'build:styles']);
 
-gulp.task('build:post', function() {
-  return gulp.src('./node_modules/nodewebkit/package.json', {read: false})
-    .pipe(clean());
-});
-
 gulp.task('run', function() {
-  exec(path.normalize('./node_modules/.bin/nodewebkit'));
+  exec(path.normalize('./node_modules/.bin/electron') + ' .');
 });
 
 gulp.task('default', function(cb) {
-  return runSequence('build', 'build:post', 'run', cb);
+  return runSequence('build', 'run', cb);
 });

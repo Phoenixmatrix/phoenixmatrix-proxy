@@ -3,12 +3,20 @@ PhoenixMatrix web development proxy
 
 [![Join the chat at https://gitter.im/Phoenixmatrix/phoenixmatrix-proxy](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Phoenixmatrix/phoenixmatrix-proxy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-_v0.1.1 technical preview_
+_v0.2.0 technical preview_
 
-Web debugging proxy in the spirit of Fiddler and Charles Proxy, written in JavaScript with [nw.js](http://nwjs.io/)
+Web debugging proxy in the spirit of Fiddler and Charles Proxy, written in JavaScript with [Electron Shell](http://electron.atom.io/)
 and node.
 
-Tested on MacOSX Yosemite, Windows 8.1 and Ubuntu 14, with caveats*
+Tested on MacOSX Yosemite, Windows 8.1 and Ubuntu 14.
+
+## Release notes
+
+**v0.2.0**
+* Moved from nw.js to Electron Shell
+* Updated to the latest version of Babel
+* Updated Babel transformer blacklist for features iojs supports natively to clean up the generated code
+* Removed a bunch of hacks for cross platform support that are no longer necessary for Electron Shell.
 
 ## Warning: Technical Preview
 This is a technical preview at best!!
@@ -22,21 +30,21 @@ Again, the code is a mess. Please don't look at it and email me that its bad. Fo
 
 ![PhoenixMatrix web development proxy](/doc/example.png?raw=true "See what happens behind the scene")
 
-* Works on  all major browsers
-* Works on all operating systems that nw.js supports
+* Works with all major browsers
+* Works on all operating systems that Electron Shell (formerly Atom Shell) supports. Sorry Windows XP!
 * Supports both http and https
 * Allows real time https decryption with no scary warning (not even from Chrome!)
-* Handles gzipped responses (doesn't yet decode base65 encoded bodies though. That's coming)
+* Handles gzipped responses (doesn't yet decode base64 encoded bodies though. That's coming)
 * Dynamically creates its own certificates for https decryption. No need to fiddle with OpenSSL! (though you do need to have it installed)
+* Secure! The certificate authority is created on the fly the first time you launch PhoenixMatrix. No one else will have the private key.
 * Free and open source the MIT license. Feel free to hack it up.
-* Built on open web technology. JavaScript, CSS, node.js.
-* Uses the latest EcmaScript 6 features.
+* Built on open web technology. JavaScript, CSS, node.js (well, Electron Shell uses a fork of io.js. Close enough!).
+* Uses the latest EcmaScript 6 features, including generators, for [better asyncronous code](http://eng.localytics.com/better-asynchronous-javascript/)
 
 ### Setup
 * Clone this repo
 * Open a command prompt and navigate to the location where you cloned it.
-* Run `npm install` (on Windows, you will get some kexec errors preceded with the message "optional dep failed, continuing".
- This is ok, things will work anyway.
+* Run `npm install`. Electron Shell will be downloaded here, so expect a big download.
 * Run `gulp`
 * You should now see the inspector. Setup the proxy in your browser of choice (or in your application), and you're good to go!
 * From now on you can use `npm start` to run PhoenixMatrix without rebuilding everything.
@@ -51,11 +59,11 @@ Exclude SSl/HTTPS from using the proxy if you don't need it and/or don't want to
 
 For https support, after running PhoenixMatrix, look in the certificate folder where you cloned the repo. Import `ca.crt` in your browser (Firefox)
 or as a system certificate for most other browsers/operating systems. If prompted, the certificate only need to be used for websites. On Windows, the certificate needs to
-be configured in the Trusted Certificate Authorities (you can just double click the certificate to launch the wizard).
+be configured in the Trusted Certificate Authorities (you can just double click the certificate to launch the wizard). You may need to restart PhoenixMatrix and/or your browser after doing this.
 
 PhoenixMatrix uses a certificate authority to generate individual server certificates, so only the one certificate needs to be installed.
 
-**if your pages aren't loading**: If after installing the certificate in your browser, pages aren't loading, close PhoenixMatrix and restart it. Seems like the invalid certificate
+**if your pages aren't loading**: If after installing the certificate in your browser, pages aren't loading, close PhoenixMatrix andor your browser and restart it/them. Seems like the invalid certificate
 behavior of some browsers leave the proxy in a weird state
 
 ### Configuration
@@ -69,17 +77,15 @@ if you point your browser to it directly.
 
 ### Caveats
 * On MacOSX, when using the trackpad, scrolling isn't as smooth as it should be.
-* On newer versions of Ubuntu, or any distribution lacking libudev.so.0 (ie: with libudev.so.1 installed), see
-[this link](https://github.com/nwjs/nw.js/wiki/The-solution-of-lacking-libudev.so.0) on how to get things running.
-* On windows, make sure you have OpenSSL installed, and it is in the path. Using [Git Bash](http://git-scm.com/downloads)
-will do the trick too.
+* On windows, make sure you have OpenSSL installed, and it is in the path. [Git Bash](http://git-scm.com/downloads)
+will do the trick too (you may need this anyway because of pathing. To be continued...)
 * As of the technical preview, it is not possible to directly disable https support. If you don't want to setup the certificate, ensure your browser is not
 configured to use the proxy for HTTPS if you do not want it to stop you from browsing https sites during development.
 * The proxy currently only checks individual server certificate expiration dates to regenerate them. If you get an error that the CA certificate isn't valid
 even though you imported it, just delete the content of the certificate folder, restart PhoenixMatrix and import ca.crt again
 * Expect the code to change a LOT from now on. This was hacked up quickly to get things working. If you make a fork, don't expect to easily be able to merge from
 upstream for very long.
-* Doesn't support old HTTP versions, servers or uncommon network setups.
+* Doesn't support old HTTP versions, web sockets, HTTP/2, old servers or uncommon network setups.
 
 Inspiration taken from the following projects. Thanks! :
 * [node-http-proxy](https://github.com/nodejitsu/node-http-proxy)

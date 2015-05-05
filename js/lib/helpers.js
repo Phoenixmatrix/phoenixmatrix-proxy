@@ -10,4 +10,4 @@ let exists = function (...paths) {
   });
 };
 
-export { exists };
+export default { exists };

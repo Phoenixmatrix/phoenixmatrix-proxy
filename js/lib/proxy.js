@@ -2,6 +2,7 @@ import net from 'net';
 import http from 'http';
 import https from 'https';
 import connect from 'connect';
+import tls from 'tls';
 import crypto from 'crypto';
 import uuid from 'node-uuid';
 import zlib from 'zlib';
@@ -173,16 +174,16 @@ requestProcessors.push(function (req, res, next) {
 });
 
 var getSecureContext = function(keys) {
-  return crypto.createCredentials({
+  return tls.createSecureContext({
     key: keys.key,
     cert: keys.certificate,
     ca: cert.getCA()
-  }).context;
+  });
 };
 
 var certCache = {};
 
-var sniCallback = (hostname) => getSecureContext(certCache[hostname]);
+var sniCallback = (hostname, cb) =>  cb(null, getSecureContext(certCache[hostname]));
 
 var createHttpsProxy = function(options) {
   return new Promise(function(resolve) {
