@@ -1,9 +1,5 @@
-"use strict";
-import '6to5/polyfill';
-import angular from './lib/angular';
-
-angular.module('phoenixmatrix', ['bgDirectives', 'ui.bootstrap']);
-
+import 'babel/polyfill';
+import './lib/angular';
 import './services';
 import './filters';
 import './directives';
