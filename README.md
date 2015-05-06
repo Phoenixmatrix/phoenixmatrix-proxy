@@ -3,7 +3,7 @@ PhoenixMatrix web development proxy
 
 [![Join the chat at https://gitter.im/Phoenixmatrix/phoenixmatrix-proxy](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Phoenixmatrix/phoenixmatrix-proxy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-_v0.2.0 technical preview_
+_v0.2.1 technical preview_
 
 Web debugging proxy in the spirit of Fiddler and Charles Proxy, written in JavaScript with [Electron Shell](http://electron.atom.io/)
 and node.
@@ -11,6 +11,9 @@ and node.
 Tested on MacOSX Yosemite, Windows 8.1 and Ubuntu 14.
 
 ## Release notes
+
+**v0.2.0**
+* Migrated from Angular to React
 
 **v0.2.0**
 * Moved from nw.js to Electron Shell
@@ -46,7 +49,7 @@ Again, the code is a mess. Please don't look at it and email me that its bad. Fo
 * Open a command prompt and navigate to the location where you cloned it.
 * Run `npm install`. Electron Shell will be downloaded here, so expect a big download.
 * Run `gulp`
-* You should now see the inspector. Setup the proxy in your browser of choice (or in your application), and you're good to go!
+* You should now see the GUI application. Setup the proxy in your browser of choice (or in your application), and you're good to go!
 * From now on you can use `npm start` to run PhoenixMatrix without rebuilding everything.
 
 ### Configuring your browser to use the proxy
@@ -75,6 +78,13 @@ The available options can be found in phoenixmatrix.json, in JSON format (duh!).
 if you point your browser to it directly.
 * `certificateExpiration`: how many days should the generated certificates be valid for
 
+### Hacking and debugging PhoenixMatrix
+
+PhoenixMatrix is built on top of Electron Shell, which in turn is built on top of Chromium and iojs.
+This means you can easily add features or hack it up the same way you would a web page built with React and node/iojs.
+
+Like the Chrome browser, Electron Shell supports the devtools you know: with the window focused, just hit ctrl+shift+i (command+shift+i on mac)!
+
 ### Caveats
 * On MacOSX, when using the trackpad, scrolling isn't as smooth as it should be.
 * On windows, make sure you have OpenSSL installed, and it is in the path. [Git Bash](http://git-scm.com/downloads)
@@ -87,9 +97,14 @@ even though you imported it, just delete the content of the certificate folder, 
 upstream for very long.
 * Doesn't support old HTTP versions, web sockets, HTTP/2, old servers or uncommon network setups.
 
+### Thanks, inspiration and resources
+
 Inspiration taken from the following projects. Thanks! :
 * [node-http-proxy](https://github.com/nodejitsu/node-http-proxy)
 * [pem](https://github.com/andris9/pem)
+
+Splitter was ported to React from [bg-splitter](https://github.com/blackgate/bg-splitter). Thanks!
+My port isn't polished enough to warrent its own repo, but if anyone is interested, I can do so.
 
 ### License
 

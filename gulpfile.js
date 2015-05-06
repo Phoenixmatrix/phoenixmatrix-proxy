@@ -28,7 +28,7 @@ gulp.task('clean', function() {
 });
 
 gulp.task('build:styles', function() {
-  return gulp.src('./stylesheets/style.less')
+  return gulp.src('./stylesheets/**/*.less')
     .pipe(less())
     .pipe(gulp.dest('./dist/css'));
 });
@@ -38,7 +38,7 @@ gulp.task('rebuild', function(cb) {
 });
 
 gulp.task('build:js', function() {
-  return gulp.src(['./js/**/*.js'])
+  return gulp.src(['./js/**/*.js', './js/**/*.jsx'])
     .pipe(sourcemaps.init())
     .pipe(babel(babelOptions))
     .pipe(sourcemaps.write())

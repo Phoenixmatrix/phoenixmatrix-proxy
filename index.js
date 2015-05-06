@@ -18,9 +18,11 @@ app.on('window-all-closed', function() {
 });
 
 app.on('ready', function() {
-  globalShortcut.register('ctrl+shift+i', function() {
-    console.log('opening debugger')
-    BrowserWindow.getFocusedWindow().toggleDevTools();
+  globalShortcut.register('CommandOrControl+Shift+i', function() {
+    var w = BrowserWindow.getFocusedWindow();
+    if(w) {
+      w.toggleDevTools();
+    }
   });
 
   mainWindow = new BrowserWindow({width: 1000, height: 800, icon: "./icon.png"});
