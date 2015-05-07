@@ -104,7 +104,7 @@ Inspiration taken from the following projects. Thanks! :
 * [pem](https://github.com/andris9/pem)
 
 Splitter was ported to React from [bg-splitter](https://github.com/blackgate/bg-splitter). Thanks!
-My port isn't polished enough to warrent its own repo, but if anyone is interested, I can do so.
+My port isn't polished enough to warrant its own repo, but if anyone is interested, I can do so.
 
 ### License
 
