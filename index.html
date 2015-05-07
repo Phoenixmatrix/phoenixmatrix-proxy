@@ -4,106 +4,19 @@
   <title>PhoenixMatrix Proxy</title>
   <link rel="stylesheet" type="text/css" href="./vendor/bootstrap/css/bootstrap.min.css"/>
   <link rel="stylesheet" type="text/css" href="./vendor/font-awesome/css/font-awesome.css"/>
-  <link rel="stylesheet" type="text/css" href="./vendor/splitter/style.css"/>
+  <link rel="stylesheet" type="text/css" href="./dist/css/splitter.css"/>
   <link rel="stylesheet" type="text/css" href="./dist/css/style.css"/>
   <script type="text/javascript">
     window.$ = window.jQuery = require('./vendor/jquery/jquery.min.js');
   </script>
   <script type="text/javascript" src='vendor/bootstrap/js/bootstrap.min.js'></script>
-  <script type="text/javascript" src='vendor/angular/angular.min.js'></script>
-  <script type="text/javascript" src='vendor/bootstrap-ui/ui-bootstrap-custom-tpls-0.12.0.js'></script>
-  <script type="text/javascript" src='vendor/splitter/splitter.js'></script>
   <script type="text/javascript">
     require('./dist/app');
   </script>
 </head>
-<body ng-app="phoenixmatrix">
+<body>
 <div class="view-wrapper">
-  <div class="main-section" ng-controller="ProxyCtrl as index">
-    <div class="header-section navbar navbar-inverse navbar-fixed-top">
-      <span class="navbar-brand">PhoenixMatrix web debugging proxy v0.1 Preview</span>
-
-      <form class="navbar-form navbar-right">
-        <input type="text" class="form-control" placeholder="Search..." ng-model="requestFilter"
-               ng-model-options="{ debounce: 500 }">
-      </form>
-    </div>
-    <bg-splitter orientation="horizontal">
-      <bg-pane min-size="370">
-        <div class="left-section">
-          <ul class="button-toolbar">
-            <li class="fa fa-ban" ng-click="index.clear()" tooltip-placement="right" tooltip="Clear requests"></li>
-            <li class="fa fa-pause" ng-click="index.togglePause()" ng-class="{ selected: index.paused }" tooltip-placement="right" tooltip="Pause capture"></li>
-            <li class="fa fa-server" ng-click="index.toggleConnect()" ng-class="{ selected: index.config.includeConnect }" tooltip-placement="right" tooltip="Display CONNECT requests"></li>
-          </ul>
-          <div class="requests" request-list requests="proxy.requests" filter="requestFilter"
-               request-selected="index.selectRequest"></div>
-        </div>
-      </bg-pane>
-      <bg-pane min-size="200">
-        <div class="content-section">
-          <div class="request-detail" ng-if="selectedRequest">
-            <div ng-include="'views/request-header.html'"></div>
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h4>Request</h4>
-              </div>
-              <div class="panel-body">
-                <div class="panel panel-primary headers-list" ng-if="selectedRequest.headers">
-                  <div class="panel-heading" ng-click="collapseRequestHeaders = !collapseRequestHeaders">
-                    Headers
-                  </div>
-                  <table class="table table-hover" ng-if="!collapseRequestHeaders">
-                    <tbody>
-                    <tr ng-repeat="(key, value) in selectedRequest.headers">
-                      <td ng-bind="key"></td>
-                      <td ng-bind="value"></td>
-                    </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="panel panel-primary request-body" ng-if="selectedRequest.body.length">
-                  <div class="panel-heading" ng-click="showRequestBody = !showRequestBody">Body</div>
-                  <div class="panel-body" ng-if="showRequestBody" ng-bind="selectedRequest.body"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="response-detail" ng-if="selectedRequest && selectedRequest.responseHeaders">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h4>Response</h4>
-              </div>
-              <div class="panel-body">
-                <div class="panel panel-primary headers-list">
-                  <div class="panel-heading"
-                       ng-click="collapseResponseHeaders = !collapseResponseHeaders">Headers
-                  </div>
-                  <table class="table table-hover" ng-if="!collapseResponseHeaders">
-                    <tbody>
-                    <tr ng-repeat="(key, value) in selectedRequest.responseHeaders">
-                      <td ng-bind="key"></td>
-                      <td ng-bind="value"></td>
-                    </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="panel panel-primary response-body" ng-if="selectedRequest.responseBody">
-                  <div class="panel-heading" ng-click="collapseResponseBody = !collapseResponseBody">
-                    Body
-                  </div>
-                  <div class="panel-body" ng-if="collapseResponseBody">
-                    <textarea ng-bind="selectedRequest.responseBody"></textarea>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </bg-pane>
-    </div>
-    <div class="footer-section"></div>
-  </div>
+  <div class="main-section"></div>
 </div>
 </body>
 </html>

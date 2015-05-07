@@ -1,8 +1,14 @@
 import 'babel/polyfill';
-import './lib/angular';
-import './services';
-import './filters';
-import './directives';
-import './controllers';
+import React from 'react';
+import domready from "domready";
+import PhoenixMatrixApp from './components/PhoenixMatrixApp';
+import requestStore from './stores/request-store';
 
+requestStore.init();
 
+domready(function () {
+  React.render(
+    <PhoenixMatrixApp />,
+    document.body
+  );
+});
