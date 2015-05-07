@@ -12,7 +12,7 @@ Tested on MacOSX Yosemite, Windows 8.1 and Ubuntu 14.
 
 ## Release notes
 
-**v0.2.0**
+**v0.2.1**
 * Migrated from Angular to React
 
 **v0.2.0**
