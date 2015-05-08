@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react/addons';
 import _ from 'lodash';
 
 const PureRenderMixin = React.addons.PureRenderMixin;
@@ -33,7 +33,7 @@ export default React.createClass({
               })
             }
             </tbody>
-          </table>
+          </table>;
       }
 
       content = <div className="panel panel-primary headers-list">

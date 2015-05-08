@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react/addons';
 import classNames from 'classnames';
 import requestActions from '../actions/request-actions';
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react/addons';
 import _ from 'lodash';
 
 import Header from './Header';
@@ -8,6 +8,8 @@ import Footer from './Footer';
 import Splitter from './Splitter';
 import requestStore from '../stores/request-store';
 import configStore from '../stores/config-store';
+
+const PureRenderMixin = React.addons.PureRenderMixin;
 
 function getRequests() {
   return {
@@ -22,6 +24,7 @@ function getConfig() {
 }
 
 export default React.createClass({
+  mixins: [PureRenderMixin],
   onRequestChange: function() {
     this.setState(getRequests());
   },

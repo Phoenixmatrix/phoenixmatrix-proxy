@@ -1,11 +1,13 @@
-import React from 'react';
+import React from 'react/addons';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import classNames from 'classnames';
 
 import requestActions from '../actions/request-actions';
 import configActions from '../actions/config-actions';
+const PureRenderMixin = React.addons.PureRenderMixin;
 
 export default React.createClass({
+  mixins: [PureRenderMixin],
   onClearClick: function() {
     requestActions.clear();
   },

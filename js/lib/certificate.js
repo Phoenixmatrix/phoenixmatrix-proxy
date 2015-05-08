@@ -1,74 +1,62 @@
-import Promise from 'bluebird';
 import fsOrig from 'fs';
-import { spawn } from 'child_process';
+import crypto from 'crypto';
+import { pki, md } from 'node-forge';
+import Promise from 'bluebird';
+import moment from 'moment'
 
 import mkdirpOrig from 'mkdirp';
 import helpers from './helpers';
-import _  from 'lodash';
+import _ from 'lodash';
 import config from './config';
+
+const async = Promise.coroutine;
 
 let fs = Promise.promisifyAll(fsOrig);
 let mkdirp = Promise.promisify(mkdirpOrig);
 
 let directory = './certificate/';
-let conf = './openssl.cnf';
 let caCertPath = directory + 'ca.crt';
 let caKeyPath = directory + 'ca.key';
-let serialPath = directory + 'serial.seq';
-
-let spawnCommand = function(command, params, input) {
-  params = params.slice(0);
-  params.unshift(command);
-  let process = spawn('openssl', params);
-  let output = '';
-  let errorOutput = '';
-
-  return new Promise(function(resolve, reject) {
-    process.stdout.on('data', function(data) {
-      output += data;
-    });
-
-    process.stderr.on('data', function(data) {
-      errorOutput += data;
-    });
-
-    process.on('close', function(code) {
-      if(code > 0) {
-        console.log(command + ' exited with code ' + code);
-        reject(errorOutput);
-      } else {
-        resolve(output);
-      }
-    });
-
-    if(input) {
-      process.stdin.write(input);
-    }
-    process.stdin.end();
-  });
-};
-
-let runningCommand = Promise.resolve();
-let spawnCommandSafe = Promise.coroutine(function* (command, params, input) {
-  try {
-    yield runningCommand;
-    return yield (runningCommand = spawnCommand(command, params, input));
-  } catch(err) {
-    console.log(err);
-    runningCommand = Promise.resolve();
-  }
-});
 
 var domainCertificates = {};
 var ca;
 var getCA = () => ca;
 
-var createCertificateAuthority = Promise.coroutine(function* () {
-  yield spawnCommandSafe('genrsa', ['-out', caKeyPath, '2048']);
-  let request = yield spawnCommandSafe('req', ['-new', '-key', caKeyPath, '-config', conf, '-subj', '/CN=phoenixmatrix_do_not_trust/O=do_not_trust_phoenixmatrix/C=US']);
-  let certificate = yield spawnCommandSafe('x509', ['-req', '-sha256', '-days', config.certificateExpiration, '-signkey', caKeyPath], request);
-  ca = certificate;
-  return yield fs.writeFileAsync(caCertPath, certificate);
+const getSerial = () => crypto.randomBytes(Math.ceil(16 / 2)).toString('hex').slice(0, 16).toUpperCase();
+const keys = pki.rsa.generateKeyPair(2048);
+
+var createCertificateAuthority = async(function* () {
+  const certificate = pki.createCertificate();
+  certificate.publicKey = keys.publicKey;
+  certificate.serialNumber = getSerial();
+  certificate.validity.notBefore = new Date();
+  certificate.validity.notAfter = new Date();
+  certificate.validity.notAfter.setFullYear(certificate.validity.notBefore.getFullYear() + 1);
+  var attrs = [{
+    name: 'commonName',
+    value: 'phoenixmatrix_do_not_trust'
+  }, {
+    name: 'organizationName',
+    value: 'do_not_trust_phoenixmatrix'
+  }, {
+    name: 'countryName',
+    value: 'US'
+  }];
+
+  certificate.setExtensions([{
+    name: 'basicConstraints',
+    cA: true
+  }]);
+
+  certificate.setSubject(attrs);
+  certificate.setIssuer(attrs);
+  certificate.sign(keys.privateKey, md.sha256.create());
+
+  ca = pki.certificateToPem(certificate);
+
+  const privateKey = pki.privateKeyToPem(keys.privateKey);
+  yield fs.writeFileAsync(caKeyPath, privateKey);
+  return yield fs.writeFileAsync(caCertPath, ca);
 });
 
 let keyPairPaths = function(domain) {
@@ -78,19 +66,19 @@ let keyPairPaths = function(domain) {
   };
 };
 
-let readKeyPair = Promise.coroutine(function* (domain) {
+let readKeyPair = async(function* (domain) {
   let { keyPath, certPath } = keyPairPaths(domain);
   let [key, certificate] = yield Promise.all([fs.readFileAsync(keyPath), fs.readFileAsync(certPath)]);
 
   return yield Promise.resolve({ key, certificate });
 });
 
-let isCertificateValid = Promise.coroutine(function* (certificate) {
-  let info = yield spawnCommandSafe('x509', ['-noout', '-text'], certificate);
-  return Date.parse(info.match(/Not After\s?:\s?([^\n]*)\n/)[1]) < Date.now();
+let isCertificateValid = async(function* (certPem) {
+  const certificate = pki.certificateFromPem(certPem);
+  return certificate.validity.notAfter > Date.now();
 });
 
-let getServerCertificate = Promise.coroutine(function* (domain) {
+let getServerCertificate = async(function* (domain) {
   if(domainCertificates[domain]) {
     return yield Promise.resolve(domainCertificates[domain]);
   }
@@ -111,11 +99,49 @@ let getServerCertificate = Promise.coroutine(function* (domain) {
       ca = yield fs.readFileAsync(caCertPath);
     }
 
-    yield spawnCommandSafe('genrsa', [ '-out', keyPath, '2048']);
-    let request = yield spawnCommandSafe('req', ['-new', '-key', keyPath, '-config', conf, '-subj', '/O=do_not_trust_phoenixmatrix/C=US/CN=' + domain]);
-    yield spawnCommandSafe('x509', ['-req', '-out', certPath, '-sha256', '-days', config.certificateExpiration, '-CA', caCertPath, '-CAkey', caKeyPath, '-CAcreateserial', '-CAserial', serialPath], request);
+    const csr = pki.createCertificationRequest();
+    csr.publicKey = keys.publicKey;
+    const attrs = [{
+      name: 'commonName',
+      value: domain
+    }, {
+      name: 'organizationName',
+      value: 'do_not_trust_phoenixmatrix'
+    }, {
+      name: 'countryName',
+      value: 'US'
+    }];
 
-    result = yield readKeyPair(domain);
+    csr.setSubject(attrs);
+    csr.sign(keys.privateKey, md.sha256.create());
+
+    const caKeyPem = yield fs.readFileAsync(caKeyPath);
+    const caKey = pki.privateKeyFromPem(caKeyPem);
+    const caCertPem = yield fs.readFileAsync(caCertPath);
+    const caCert = pki.certificateFromPem(caCertPem);
+
+    var certificate = pki.createCertificate();
+    certificate.serialNumber = getSerial();
+    certificate.validity.notBefore = new Date();
+
+    const expiration = moment(certificate.validity.notBefore);
+    expiration.add(config.certificateExpiration, 'days');
+    certificate.validity.notAfter = expiration.toDate();
+
+    certificate.setSubject(csr.subject.attributes);
+    certificate.setIssuer(caCert.subject.attributes);
+    certificate.publicKey = csr.publicKey;
+    certificate.sign(caKey, md.sha256.create());
+
+    const serverCertificate = pki.certificateToPem(certificate);
+    const serverKey = pki.privateKeyToPem(keys.privateKey);
+
+    yield Promise.all([
+      fs.writeFileAsync(certPath, serverCertificate),
+      fs.writeFileAsync(keyPath, serverKey)
+    ]);
+
+    result = yield Promise.resolve({key: serverKey, certificate: serverCertificate});
   }
 
   domainCertificates[domain] = result;
