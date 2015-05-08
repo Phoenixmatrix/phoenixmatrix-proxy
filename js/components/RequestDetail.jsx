@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react/addons';
 import RequestDetailHeader from './RequestDetailHeader';
 import HttpHeaders from './HttpHeaders';
 import RequestBody from './RequestBody';

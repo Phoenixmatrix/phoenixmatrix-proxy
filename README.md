@@ -12,6 +12,12 @@ Tested on MacOSX Yosemite, Windows 8.1 and Ubuntu 14.
 
 ## Release notes
 
+**v0.2.2**
+* Some rendering performance improvements
+* No more OpenSSL dependency (using the fantastic [forge](https://github.com/digitalbazaar/forge)
+    * That means Windows users can now launch PhoenixMatrix from powershell, cmd.exe, whatever. It "just works" on all 3 major platforms.
+    * Since the certificates are now generated in javascript synchronously, there's few performance blips the first time. This will be addressed in the future.
+
 **v0.2.1**
 * Migrated from Angular to React
 
@@ -38,7 +44,7 @@ Again, the code is a mess. Please don't look at it and email me that its bad. Fo
 * Supports both http and https
 * Allows real time https decryption with no scary warning (not even from Chrome!)
 * Handles gzipped responses (doesn't yet decode base64 encoded bodies though. That's coming)
-* Dynamically creates its own certificates for https decryption. No need to fiddle with OpenSSL! (though you do need to have it installed)
+* Dynamically creates its own certificates for https decryption. No need to fiddle with OpenSSL! No OpenSSL dependencies whatsoever.
 * Secure! The certificate authority is created on the fly the first time you launch PhoenixMatrix. No one else will have the private key.
 * Free and open source the MIT license. Feel free to hack it up.
 * Built on open web technology. JavaScript, CSS, node.js (well, Electron Shell uses a fork of io.js. Close enough!).
@@ -87,8 +93,6 @@ Like the Chrome browser, Electron Shell supports the devtools you know: with the
 
 ### Caveats
 * On MacOSX, when using the trackpad, scrolling isn't as smooth as it should be.
-* On windows, make sure you have OpenSSL installed, and it is in the path. [Git Bash](http://git-scm.com/downloads)
-will do the trick too (you may need this anyway because of pathing. To be continued...)
 * As of the technical preview, it is not possible to directly disable https support. If you don't want to setup the certificate, ensure your browser is not
 configured to use the proxy for HTTPS if you do not want it to stop you from browsing https sites during development.
 * The proxy currently only checks individual server certificate expiration dates to regenerate them. If you get an error that the CA certificate isn't valid
@@ -99,7 +103,7 @@ upstream for very long.
 
 ### Thanks, inspiration and resources
 
-Inspiration taken from the following projects. Thanks! :
+Inspiration taken from the following projects (I don't use the, but I learnt a lot from the source). Thanks! :
 * [node-http-proxy](https://github.com/nodejitsu/node-http-proxy)
 * [pem](https://github.com/andris9/pem)
 

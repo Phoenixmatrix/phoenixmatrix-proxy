@@ -1,9 +1,12 @@
 import _ from 'lodash';
 
-import React from 'react';
+import React from 'react/addons';
+
 import requestActions from '../actions/request-actions';
+const PureRenderMixin = React.addons.PureRenderMixin;
 
 export default React.createClass({
+  mixins: [PureRenderMixin],
   setFilter: function(expression) {
     requestActions.setFilter(expression.trim());
   },

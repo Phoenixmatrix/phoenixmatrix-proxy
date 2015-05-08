@@ -1,7 +1,9 @@
-import React from 'react';
+import React from 'react/addons';
 import classNames from 'classnames';
+const PureRenderMixin = React.addons.PureRenderMixin;
 
 export default React.createClass({
+  mixins: [PureRenderMixin],
   getInitialState: function() {
     return {dragging: false, handlerPos: this.props.initialPosition || 100};
   },

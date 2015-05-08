@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react/addons';
 
 import VerticalButtonBar from './VerticalButtonBar';
 import RequestList from './RequestList';

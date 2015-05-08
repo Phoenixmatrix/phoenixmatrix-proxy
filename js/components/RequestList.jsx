@@ -2,9 +2,9 @@ import React from 'react/addons';
 
 import RequestListItem from './RequestListItem';
 
-const PureRenderMixin = React.addons.PureRenderMixin;
 const ITEM_HEIGHT = 50;
 const BUFFER_SIZE = 100;
+const PureRenderMixin = React.addons.PureRenderMixin;
 
 export default React.createClass({
   mixins: [PureRenderMixin],
@@ -13,12 +13,12 @@ export default React.createClass({
   },
 
   attachScrollListener: function () {
-    var node = this.getDOMNode();
+    var node = React.findDOMNode(this.refs.scrollingList);
     node.addEventListener('scroll', this.onScroll);
   },
 
   detachScrollListener: function () {
-    var node = this.getDOMNode();
+    var node = React.findDOMNode(this.refs.scrollingList);
     node.removeEventListener('scroll', this.onScroll);
   },
 

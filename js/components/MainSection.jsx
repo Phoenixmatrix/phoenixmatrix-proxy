@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react/addons';
 import RequestDetail from './RequestDetail';
 import ResponseDetail from './ResponseDetail';
 

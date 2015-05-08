@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react/addons';
 import classNames from 'classnames';
 
 const PureRenderMixin = React.addons.PureRenderMixin;
