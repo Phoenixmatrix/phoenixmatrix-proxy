@@ -1,5 +1,6 @@
 import 'babel/polyfill';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import domready from "domready";
 import PhoenixMatrixApp from './components/PhoenixMatrixApp';
 import requestStore from './stores/request-store';
@@ -7,7 +8,7 @@ import requestStore from './stores/request-store';
 requestStore.init();
 
 domready(function () {
-  React.render(
+  ReactDOM.render(
     <PhoenixMatrixApp />,
     document.body
   );

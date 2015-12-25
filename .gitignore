@@ -3,3 +3,4 @@ node_modules
 certificate
 npm-debug.log
 dist
+git
