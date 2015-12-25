@@ -8,13 +8,18 @@ _v0.2.1 technical preview_
 Web debugging proxy in the spirit of Fiddler and Charles Proxy, written in JavaScript with [Electron Shell](http://electron.atom.io/)
 and node.
 
-Tested on MacOSX Yosemite, Windows 8.1 and Ubuntu 14.
+Tested on MacOSX Yosemite, Windows 8.1/10 and Ubuntu 14.
 
 ## Release notes
 
+**v0.2.3
+* Updated some dependencies to work with the latest version of Electron
+* With this update, modern browsers shouldn't choke on the TLS version anymore.
+* Regression: A lot of deprecation errors to deal with, and the development mode toolbar now shows up. Next release should clean things up.
+
 **v0.2.2**
 * Some rendering performance improvements
-* No more OpenSSL dependency (using the fantastic [forge](https://github.com/digitalbazaar/forge)
+* No more OpenSSL dependency (using the fantastic [forge](https://github.com/digitalbazaar/forge))
     * That means Windows users can now launch PhoenixMatrix from powershell, cmd.exe, whatever. It "just works" on all 3 major platforms.
     * Since the certificates are now generated in javascript synchronously, there's few performance blips the first time. This will be addressed in the future.
 
