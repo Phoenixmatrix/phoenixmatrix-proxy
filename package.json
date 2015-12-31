@@ -4,20 +4,25 @@
   "description": "A cross platform proxy for web developer that supports https",
   "main": "index.js",
   "scripts": {
-    "start": "gulp run"
+    "start": "gulp run",
+    "build": "gulp build"
   },
   "author": "Francois Ward",
   "license": "MIT",
   "dependencies": {
     "babel": "^5.2.15",
+    "babel-polyfill": "^6.3.14",
+    "babel-preset-es2015-node5": "^1.1.1",
+    "babel-preset-react": "^6.3.13",
     "bluebird": "=2.3.11",
     "classnames": "^2.1.1",
     "connect": "~3.1.1",
     "domready": "^1.0.8",
     "electron-prebuilt": "^0.36.2",
+    "eslint-config-airbnb": "^2.1.1",
     "flux": "^2.0.3",
-    "gulp": "^3.8.10",
-    "gulp-babel": "^5.1.0",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^6.1.1",
     "gulp-clean": "^0.3.1",
     "gulp-less": "^3.0.3",
     "gulp-run": "^1.6.6",
@@ -34,33 +39,9 @@
     "react-dom": "^0.14.3",
     "run-sequence": "^1.0.2"
   },
-  "eslintConfig": {
-    "env": {
-      "browser": true,
-      "node": true,
-      "es6": true
-    },
-    "ecmaFeatures": {
-      "modules": true,
-      "jsx": true
-    },
-    "globals": {
-      "$": true
-    },
-    "rules": {
-      "quotes": [
-        1,
-        "single",
-        "avoid-escape"
-      ],
-      "new-cap": false
-    },
-    "plugins": [
-      "react"
-    ]
-  },
   "devDependencies": {
-    "eslint": "^0.20.0",
-    "eslint-plugin-react": "^2.2.0"
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^2.1.1",
+    "eslint-plugin-react": "^3.13.1"
   }
 }

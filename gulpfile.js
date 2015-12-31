@@ -11,17 +11,6 @@ var gulp = require('gulp'),
 
 var exec = require('child_process').exec;
 
-var babelOptions = {
-  blacklist: [
-    'es6.constants',
-    'es6.blockScoping',
-    'es6.spec.blockScoping',
-    'es6.spec.symbols',
-    'es6.spec.templateLiterals',
-    'regenerator'
-  ]
-};
-
 gulp.task('clean', function() {
   return gulp.src('./dist', {read: false})
     .pipe(clean());
@@ -39,9 +28,7 @@ gulp.task('rebuild', function(cb) {
 
 gulp.task('build:js', function() {
   return gulp.src(['./js/**/*.js', './js/**/*.jsx'])
-    .pipe(sourcemaps.init())
-    .pipe(babel(babelOptions))
-    .pipe(sourcemaps.write())
+    .pipe(babel())
     .pipe(gulp.dest('dist'));
 });
 
