@@ -12,7 +12,7 @@ Tested on MacOSX Yosemite, Windows 8.1/10 and Ubuntu 14.
 
 ## Release notes
 
-**v0.2.3
+**v0.2.3**
 * Updated some dependencies to work with the latest version of Electron
 * With this update, modern browsers shouldn't choke on the TLS version anymore.
 * Regression: A lot of deprecation errors to deal with, and the development mode toolbar now shows up. Next release should clean things up.
