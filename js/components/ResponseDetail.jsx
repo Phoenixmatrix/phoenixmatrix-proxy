@@ -1,12 +1,10 @@
-import React from 'react//addons';
+import React from 'react';
+import pure from '../utils/pure';
 import HttpHeaders from './HttpHeaders';
 import RequestBody from './RequestBody';
 
-const PureRenderMixin = React.addons.PureRenderMixin;
-
-export default React.createClass({
-  mixins: [PureRenderMixin],
-  render: function() {
+export default class ResponseDetail extends React.Component {
+  render() {
     const request = this.props.request;
 
     return (
@@ -23,5 +21,11 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+ResponseDetail.propTypes = {
+  request: React.PropTypes.object
+};
+
+pure(ResponseDetail);
 

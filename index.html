@@ -10,13 +10,12 @@
     window.$ = window.jQuery = require('./vendor/jquery/jquery.min.js');
   </script>
   <script type="text/javascript" src='vendor/bootstrap/js/bootstrap.min.js'></script>
-  <script type="text/javascript">
-    require('./dist/app');
-  </script>
+
 </head>
 <body>
-<div class="view-wrapper">
-  <div class="main-section"></div>
-</div>
+<div id="main"></div>
+<script type="text/javascript">
+  require('./dist/app');
+</script>
 </body>
 </html>

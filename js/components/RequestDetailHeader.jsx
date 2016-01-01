@@ -1,11 +1,10 @@
-import React from 'react/addons';
+import React from 'react';
 import classNames from 'classnames';
+import pure from '../utils/pure';
 
-const PureRenderMixin = React.addons.PureRenderMixin;
+export default class RequestDetailHeader extends React.Component {
 
-export default React.createClass({
-  mixins: [PureRenderMixin],
-  render: function() {
+  render() {
     const request = this.props.request;
 
     const classes = classNames({
@@ -19,7 +18,9 @@ export default React.createClass({
         <div className="request-properties">
           <span>{request.statusCode} </span>
           <span>{request.method} </span>
-          <span>{(request.isSSL ? 'https://' : 'http://') + request.host}</span><span>{request.port ? (':' + request.port) : ''}</span>
+          <span>
+            {(request.isSSL ? 'https://' : 'http://') + request.host}
+          </span><span>{request.port ? (':' + request.port) : ''}</span>
         </div>
         <div className="request-url">
           <span>{request.path}</span>
@@ -27,4 +28,10 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+RequestDetailHeader.propTypes = {
+  request: React.PropTypes.object
+};
+
+pure(RequestDetailHeader);

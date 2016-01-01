@@ -2,27 +2,27 @@ import AppDispatcher from '../dispatchers/AppDispatcher';
 import requestConstants from '../constants/request-constants';
 
 export default {
-  selectRequest: function(request) {
+  selectRequest(request) {
     AppDispatcher.dispatch({
       action: requestConstants.SELECT_REQUEST,
-      request: request
+      request
     });
   },
 
-  setFilter: function(expression) {
+  setFilter(expression) {
     AppDispatcher.dispatch({
       action: requestConstants.SET_FILTER,
       expression
     });
   },
 
-  clear: function() {
+  clear() {
     AppDispatcher.dispatch({
       action: requestConstants.CLEAR
     });
   },
 
-  togglePause: function() {
+  togglePause() {
     AppDispatcher.dispatch({
       action: requestConstants.TOGGLE_PAUSE
     });

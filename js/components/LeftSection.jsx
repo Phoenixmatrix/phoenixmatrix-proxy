@@ -1,13 +1,10 @@
-import React from 'react/addons';
-
+import React from 'react';
+import pure from '../utils/pure';
 import VerticalButtonBar from './VerticalButtonBar';
 import RequestList from './RequestList';
 
-const PureRenderMixin = React.addons.PureRenderMixin;
-
-export default React.createClass({
-  mixins: [PureRenderMixin],
-  render: function() {
+export default class LeftSection extends React.Component {
+  render() {
     return (
       <div className="left-section">
         <VerticalButtonBar paused={this.props.paused} config={this.props.config} />
@@ -18,4 +15,14 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+LeftSection.propTypes = {
+  paused: React.PropTypes.bool,
+  config: React.PropTypes.object,
+  requests: React.PropTypes.array,
+  selectedRequest: React.PropTypes.object
+};
+
+
+pure(LeftSection);

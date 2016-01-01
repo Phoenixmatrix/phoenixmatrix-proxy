@@ -1,48 +1,28 @@
-import React from 'react/addons';
-
+import React from 'react';
+import pure from '../utils/pure';
 import RequestListItem from './RequestListItem';
 
 const ITEM_HEIGHT = 50;
 const BUFFER_SIZE = 100;
-const PureRenderMixin = React.addons.PureRenderMixin;
 
-export default React.createClass({
-  mixins: [PureRenderMixin],
-  onScroll: function () {
-    this.forceUpdate();
-  },
-
-  attachScrollListener: function () {
-    var node = React.findDOMNode(this.refs.scrollingList);
-    node.addEventListener('scroll', this.onScroll);
-  },
-
-  detachScrollListener: function () {
-    var node = React.findDOMNode(this.refs.scrollingList);
-    node.removeEventListener('scroll', this.onScroll);
-  },
-
-  componentDidMount: function () {
+export default class RequestList extends React.Component {
+  componentDidMount() {
     this.attachScrollListener();
-  },
+  }
 
-  componentWillUnmount: function () {
-    this.detachScrollListener();
-  },
-
-  componentWillUpdate: function () {
-    var node = React.findDOMNode(this.refs.scrollingList);
+  componentWillUpdate() {
+    const node = this.refs.scrollingList;
     this.scrollPosition = node.scrollTop;
     this.height = node.offsetHeight;
     this.shouldScrollBottom = this.scrollPosition + this.height >= node.scrollHeight;
-  },
+  }
 
-  componentDidUpdate: function () {
-    var node = React.findDOMNode(this.refs.scrollingList);
-    var virtualContainer = React.findDOMNode(this.refs.virtualContainer);
-    var list = React.findDOMNode(this.refs.requestList);
+  componentDidUpdate() {
+    const node = this.refs.scrollingList;
+    const virtualContainer = this.refs.virtualContainer;
+    const list = this.refs.requestList;
 
-    var count = this.props.requests.length;
+    const count = this.props.requests.length;
     virtualContainer.style.height = count * ITEM_HEIGHT + 'px';
     list.style.top = this.start * ITEM_HEIGHT + 'px';
 
@@ -51,13 +31,32 @@ export default React.createClass({
     }
 
     this.attachScrollListener();
-  },
-  render: function () {
-    var requests = this.props.requests;
-    var listItems = [];
-    var scrollY = this.scrollPosition;
-    var start = Math.max((scrollY / ITEM_HEIGHT - BUFFER_SIZE | 0), 0);
-    var end = Math.min(start + (this.height / ITEM_HEIGHT + (BUFFER_SIZE * 2) | 0), requests.length);
+  }
+
+  componentWillUnmount() {
+    this.detachScrollListener();
+  }
+
+  onScroll() {
+    this.forceUpdate();
+  }
+
+  detachScrollListener() {
+    const node = this.refs.scrollingList;
+    node.removeEventListener('scroll', this.onScroll);
+  }
+
+  attachScrollListener() {
+    const node = this.refs.scrollingList;
+    node.addEventListener('scroll', this.onScroll);
+  }
+
+  render() {
+    const requests = this.props.requests;
+    const listItems = [];
+    const scrollY = this.scrollPosition;
+    const start = Math.max((scrollY / ITEM_HEIGHT - BUFFER_SIZE | 0), 0);
+    const end = Math.min(start + (this.height / ITEM_HEIGHT + (BUFFER_SIZE * 2) | 0), requests.length);
 
     this.start = start;
     requests.slice(start, end).forEach(function (request) {
@@ -80,4 +79,11 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+RequestList.propTypes = {
+  requests: React.PropTypes.array,
+  selectedRequest: React.PropTypes.object
+};
+
+pure(RequestList);

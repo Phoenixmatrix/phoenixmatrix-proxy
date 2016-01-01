@@ -1,4 +1,5 @@
-import React from 'react/addons';
+import React from 'react';
+import pure from '../utils/pure';
 import _ from 'lodash';
 
 import Header from './Header';
@@ -9,44 +10,43 @@ import Splitter from './Splitter';
 import requestStore from '../stores/request-store';
 import configStore from '../stores/config-store';
 
-const PureRenderMixin = React.addons.PureRenderMixin;
-
-function getRequests() {
+const getRequests = () => {
   return {
     requests: requestStore.getView(),
     selected: requestStore.getSelectedRequest(),
     paused: requestStore.isPaused()
   };
-}
+};
 
-function getConfig() {
+const getConfig = () => {
   return configStore.getConfig();
-}
+};
 
-export default React.createClass({
-  mixins: [PureRenderMixin],
-  onRequestChange: function() {
+export default class PhoenixMatrixApp extends React.Component {
+  constructor() {
+    super();
+    this.state = Object.assign({}, {config: getConfig()}, getRequests());
+  }
+
+  componentDidMount() {
+    requestStore.on('change', () => this.onRequestChange());
+    configStore.on('change', () => this.onConfigChange());
+  }
+
+  componentWillUnmount() {
+    this.removeListener('change', () => this.onRequestChange());
+    this.removeListener('change', () => this.onConfigChange());
+  }
+
+  onRequestChange() {
     this.setState(getRequests());
-  },
+  }
 
-  onConfigChange: function() {
+  onConfigChange() {
     this.setState({config: getConfig()});
-  },
+  }
 
-  getInitialState: function() {
-    return _.extend({}, {config: getConfig()}, getRequests());
-  },
-  componentDidMount: function() {
-    requestStore.on('change', this.onRequestChange);
-    configStore.on('change', this.onConfigChange);
-  },
-
-  componentWillUnmount: function() {
-    this.removeListener('change', this.onRequestChange);
-    this.removeListener('change', this.onConfigChange);
-  },
-
-  render: function() {
+  render() {
     return (
       <div className="view-wrapper">
         <div className="main-section">
@@ -69,4 +69,6 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+pure(PhoenixMatrixApp);

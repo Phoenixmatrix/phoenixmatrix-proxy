@@ -1,46 +1,57 @@
-import React from 'react/addons';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import classNames from 'classnames';
-const PureRenderMixin = React.addons.PureRenderMixin;
+import pure from '../utils/pure';
 
-export default React.createClass({
-  mixins: [PureRenderMixin],
-  getInitialState: function() {
-    return {dragging: false, handlerPos: this.props.initialPosition || 100};
-  },
+export default class Splitter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {dragging: false, handlerPos: props.initialPosition || 100};
+  }
 
-  onMouseUp: function() {
+  componentDidMount() {
+    document.addEventListener('mouseup', () => this.onMouseUp());
+    document.addEventListener('mousemove', e => this.onMouseMove(e));
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mouseup', () => this.onMouseUp());
+    document.removeEventListener('mousemove', e => this.onMouseMove(e));
+  }
+
+  onMouseUp() {
     this.setState({dragging: false});
-  },
+  }
 
-  onMouseMove: function(e) {
-    if(!this.state.dragging) {
+  onMouseMove(e) {
+    if (!this.state.dragging) {
       return;
     }
 
-    const bounds = React.findDOMNode(this).getBoundingClientRect();
+    const bounds = ReactDOM.findDOMNode(this).getBoundingClientRect();
     const pane1min = this.refs.pane1.props.minSize;
     const pane2min = this.refs.pane2.props.minSize;
 
     let pos = 0;
 
     if (this.props.orientation === 'vertical') {
-      var height = bounds.bottom - bounds.top;
+      const height = bounds.bottom - bounds.top;
       pos = e.clientY - bounds.top;
 
       if (pos < pane1min) {
         return;
       }
 
-      if (height - pos < pane2min){
+      if (height - pos < pane2min) {
         return;
       }
 
-      this.setState({ handlerPos: pos});
+      this.setState({handlerPos: pos});
     } else {
-      var width = bounds.right - bounds.left;
+      const width = bounds.right - bounds.left;
       pos = e.clientX - bounds.left;
 
-      if (pos < pane1min){
+      if (pos < pane1min) {
         return;
       }
       if (width - pos < pane2min) {
@@ -49,30 +60,20 @@ export default React.createClass({
 
       this.setState({handlerPos: pos});
     }
-  },
+  }
 
-  onMouseDown: function(e) {
+  onMouseDown(e) {
     e.preventDefault();
     this.setState({dragging: true});
-  },
+  }
 
-  componentDidMount() {
-    document.addEventListener('mouseup', this.onMouseUp);
-    document.addEventListener('mousemove', this.onMouseMove);
-  },
-
-  componentWillUnmount() {
-    document.removeEventListener('mouseup', this.onMouseUp);
-    document.removeEventListener('mousemove', this.onMouseMove);
-  },
-
-  render: function() {
+  render() {
     const horizontal = this.props.orientation === 'horizontal';
 
     const classes = classNames({
-      "split-panes": true,
-      "horizontal": horizontal,
-      "vertical": !horizontal
+      'split-panes': true,
+      horizontal,
+      vertical: !horizontal
     });
 
     const children = this.props.children;
@@ -86,9 +87,9 @@ export default React.createClass({
     const pane1min = pane1.props.minSize || 0;
     const pane2min = pane2.props.minSize || 0;
 
-    const positionStyle = this.state.handlerPos + 'px'
+    const positionStyle = this.state.handlerPos + 'px';
 
-    if(horizontal) {
+    if (horizontal) {
       pane1Styles.width = pane2Styles.left = handlerStyles.left = positionStyle;
     } else {
       pane1Styles.height = pane2Styles.top = handlerStyles.top = positionStyle;
@@ -97,9 +98,19 @@ export default React.createClass({
     return (
       <div className={classes} ref="container">
         <div className="split-pane1" ref="pane1" style={pane1Styles} minSize={pane1min}>{pane1}</div>
-        <div className="split-handler" style={handlerStyles} onMouseDown={this.onMouseDown}></div>
+        <div className="split-handler" style={handlerStyles} onMouseDown={(e) => this.onMouseDown(e)}></div>
         <div className="split-pane2" ref="pane2" style={pane2Styles} minSize={pane2min}>{pane2}</div>
       </div>
     );
   }
-});
+}
+
+Splitter.propTypes = {
+  orientation: React.PropTypes.string,
+  minSize: React.PropTypes.number,
+  initialPosition: React.PropTypes.number,
+  children: React.PropTypes.node
+};
+
+
+pure(Splitter);

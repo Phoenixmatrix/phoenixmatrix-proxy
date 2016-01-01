@@ -1,26 +1,25 @@
-import React from 'react/addons';
-import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import React from 'react';
+import {OverlayTrigger, Tooltip} from 'react-bootstrap';
 import classNames from 'classnames';
+import pure from '../utils/pure';
 
 import requestActions from '../actions/request-actions';
 import configActions from '../actions/config-actions';
-const PureRenderMixin = React.addons.PureRenderMixin;
 
-export default React.createClass({
-  mixins: [PureRenderMixin],
-  onClearClick: function() {
+export default class VerticalButtonBar extends React.Component {
+  onClearClick() {
     requestActions.clear();
-  },
+  }
 
-  onTogglePauseClick: function() {
+  onTogglePauseClick() {
     requestActions.togglePause();
-  },
+  }
 
-  onToggleConnectClick: function() {
+  onToggleConnectClick() {
     configActions.toggleConnect();
-  },
+  }
 
-  render: function() {
+  render() {
     const pauseClasses = classNames({
       'fa': true,
       'fa-pause': true,
@@ -35,16 +34,23 @@ export default React.createClass({
 
     return (
       <ul className="button-toolbar">
-        <OverlayTrigger placement='right' overlay={<Tooltip>Clear requests</Tooltip>}>
-          <li className="fa fa-ban" onClick={this.onClearClick}></li>
+        <OverlayTrigger placement="right" overlay={<Tooltip>Clear requests</Tooltip>}>
+          <li className="fa fa-ban" onClick={() => this.onClearClick()} />
         </OverlayTrigger>
-        <OverlayTrigger placement='right' overlay={<Tooltip>Pause capture</Tooltip>}>
-          <li className={pauseClasses} onClick={this.onTogglePauseClick}></li>
+        <OverlayTrigger placement="right" overlay={<Tooltip>Pause capture</Tooltip>}>
+          <li className={pauseClasses} onClick={() => this.onTogglePauseClick()} />
         </OverlayTrigger>
-        <OverlayTrigger placement='right' overlay={<Tooltip>Display CONNECT requests</Tooltip>}>
-          <li className={connectClasses} onClick={this.onToggleConnectClick}></li>
+        <OverlayTrigger placement="right" overlay={<Tooltip>Display CONNECT requests</Tooltip>}>
+          <li className={connectClasses} onClick={() => this.onToggleConnectClick()} />
         </OverlayTrigger>
       </ul>
     );
   }
-});
+}
+
+VerticalButtonBar.propTypes = {
+  paused: React.PropTypes.bool,
+  config: React.PropTypes.object
+};
+
+pure(VerticalButtonBar);

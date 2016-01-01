@@ -11,14 +11,14 @@
     "no-debugger": 2,
     "no-alert": 2,
     "space-in-parens": [2, "never"],  // Enforce lack of spaces inside parens entirely for style reasons
-    "object-curly-spacing": [2, "always"], // Enforce spaces inside curleys entirely for style reasons
+    "object-curly-spacing": [2, "never"], // Enforce spaces inside curleys entirely for style reasons
     "arrow-spacing": 2,              // Enforce spaces around arrow functions entirely for style reasons
     "no-constant-condition": 2,
     "eqeqeq": [2, "allow-null"],
     "no-eq-null": 0,
     "no-undef": 2,
     "strict": 0,
-    "react/jsx-curly-spacing": [2, "always"],
+    "react/jsx-curly-spacing": [2, "never"],
     "no-unused-expressions": 0,
     "indent": [2, 2, {"SwitchCase": 0}]
   },
