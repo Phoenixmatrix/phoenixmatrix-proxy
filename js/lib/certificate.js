@@ -148,6 +148,8 @@ let getServerCertificate = async(function* (domain) {
   return yield Promise.resolve(result);
 });
 
-exports.createCertificateAuthority = createCertificateAuthority;
-exports.getServerCertificate = getServerCertificate;
-exports.getCA = getCA;
+export default {
+  createCertificateAuthority,
+  getServerCertificate,
+  getCA
+}

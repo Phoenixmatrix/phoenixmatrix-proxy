@@ -1,6 +1,6 @@
-import { EventEmitter } from 'events';
+import {EventEmitter} from 'events';
 import _ from 'lodash';
-import { coroutine as async } from 'bluebird';
+import {coroutine as async} from 'bluebird';
 import AppDispatcher from '../dispatchers/AppDispatcher';
 import config from '../lib/config';
 import proxyFactory from '../lib/proxy';

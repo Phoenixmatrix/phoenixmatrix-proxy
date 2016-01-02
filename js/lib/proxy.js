@@ -281,5 +281,4 @@ var createHttpProxy = function(options) {
   });
 };
 
-exports.createHttpProxy = createHttpProxy;
-exports.createHttpsProxy = createHttpsProxy;
+export default {createHttpProxy, createHttpsProxy};
