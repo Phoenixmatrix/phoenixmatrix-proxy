@@ -24,7 +24,8 @@
   },
   "ecmaFeatures": {
     "modules": true,
-    "generators": true
+    "generators": true,
+    "experimentalObjectRestSpread": true
   },
   "globals": {
     "chai": true,

@@ -1,6 +1,6 @@
 // This will eventually become a command line version of the proxy. For now though, it's very broken.
 
-var proxyFactory = require('./js/lib/proxy');
+var proxyFactory = require('./src/lib/proxy');
 
 var onRequest = function(data) {
     console.log('request: ' + data.method + ' ' + data.url);

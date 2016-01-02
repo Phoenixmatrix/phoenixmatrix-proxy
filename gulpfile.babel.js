@@ -22,7 +22,7 @@ gulp.task('rebuild', (cb) => {
 });
 
 gulp.task('build:js', () => {
-  return gulp.src(['./js/**/*.js', './js/**/*.jsx'])
+  return gulp.src(['./src/**/*.js', './src/**/*.jsx'])
     .pipe(babel())
     .pipe(gulp.dest('dist'));
 });

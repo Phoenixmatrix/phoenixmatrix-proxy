@@ -3,19 +3,14 @@ import _ from 'lodash';
 import React from 'react';
 import pure from '../lib/pure';
 
-import requestActions from '../actions/request-actions';
-
 export default class Header extends React.Component {
   componentWillMount() {
-    this.setFilter = _.debounce(this.setFilter, 500);
+    const {onFilterChange} = this.props;
+    this.onFilterChangeDebounced = _.debounce(onFilterChange, 500);
   }
 
   onChange(e) {
-    this.setFilter(e.target.value);
-  }
-
-  setFilter(expression) {
-    requestActions.setFilter(expression.trim());
+    this.onFilterChangeDebounced(e.target.value);
   }
 
   render() {
@@ -35,5 +30,9 @@ export default class Header extends React.Component {
     );
   }
 }
+
+Header.propTypes = {
+  onFilterChange: React.PropTypes.func
+};
 
 pure(Header);
