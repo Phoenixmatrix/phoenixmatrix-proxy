@@ -29,8 +29,8 @@ export default class Splitter extends React.Component {
     }
 
     const bounds = ReactDOM.findDOMNode(this).getBoundingClientRect();
-    const pane1min = this.refs.pane1.props.minSize;
-    const pane2min = this.refs.pane2.props.minSize;
+    const pane1min = this.refs.pane1.minSize;
+    const pane2min = this.refs.pane2.minSize;
 
     let pos = 0;
 
@@ -84,8 +84,8 @@ export default class Splitter extends React.Component {
     const pane1Styles = {};
     const pane2Styles = {};
 
-    const pane1min = pane1.props.minSize || 0;
-    const pane2min = pane2.props.minSize || 0;
+    const pane1min = pane1.minSize || 0;
+    const pane2min = pane2.minSize || 0;
 
     const positionStyle = this.state.handlerPos + 'px';
 
