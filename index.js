@@ -26,7 +26,7 @@ app.on('ready', function() {
   });
 
   mainWindow = new BrowserWindow({width: 1000, height: 800, icon: "./icon.png"});
-  //mainWindow.setMenu(null);
+  mainWindow.setMenu(null);
 
   mainWindow.loadURL('file://' + __dirname + '/index.html');
   mainWindow.on('closed', function() {

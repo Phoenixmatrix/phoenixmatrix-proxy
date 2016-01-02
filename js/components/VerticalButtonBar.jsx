@@ -1,7 +1,7 @@
 import React from 'react';
 import {OverlayTrigger, Tooltip} from 'react-bootstrap';
 import classNames from 'classnames';
-import pure from '../utils/pure';
+import pure from '../lib/pure';
 
 import requestActions from '../actions/request-actions';
 import configActions from '../actions/config-actions';

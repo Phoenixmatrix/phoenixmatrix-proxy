@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import pure from '../utils/pure';
+import pure from '../lib/pure';
 
 export default class RequestDetailHeader extends React.Component {
 

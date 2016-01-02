@@ -1,5 +1,5 @@
 import React from 'react';
-import pure from '../utils/pure';
+import pure from '../lib/pure';
 import RequestDetail from './RequestDetail';
 import ResponseDetail from './ResponseDetail';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import pure from '../utils/pure';
+import pure from '../lib/pure';
 import _ from 'lodash';
 
 export default class HttpHeaders extends React.Component {

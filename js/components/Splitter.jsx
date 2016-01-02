@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
-import pure from '../utils/pure';
+import pure from '../lib/pure';
 
 export default class Splitter extends React.Component {
   constructor(props) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import pure from '../utils/pure';
+import pure from '../lib/pure';
 import RequestDetailHeader from './RequestDetailHeader';
 import HttpHeaders from './HttpHeaders';
 import RequestBody from './RequestBody';
