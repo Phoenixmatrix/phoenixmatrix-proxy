@@ -29,8 +29,6 @@ export default class RequestList extends React.Component {
     if (this.shouldScrollBottom) {
       node.scrollTop = node.scrollHeight;
     }
-
-    this.attachScrollListener();
   }
 
   componentWillUnmount() {
@@ -43,16 +41,16 @@ export default class RequestList extends React.Component {
 
   detachScrollListener() {
     const node = this.refs.scrollingList;
-    node.removeEventListener('scroll', this.onScroll);
+    node.removeEventListener('scroll', () => this.onScroll());
   }
 
   attachScrollListener() {
     const node = this.refs.scrollingList;
-    node.addEventListener('scroll', this.onScroll);
+    node.addEventListener('scroll', () => this.onScroll());
   }
 
   render() {
-    const requests = this.props.requests;
+    const {onSelectRequest, requests, selectedRequest} = this.props;
     const listItems = [];
     const scrollY = this.scrollPosition;
     const start = Math.max((scrollY / ITEM_HEIGHT - BUFFER_SIZE | 0), 0);
@@ -63,7 +61,8 @@ export default class RequestList extends React.Component {
       listItems.push(<RequestListItem
         key={request.id}
         request={request}
-        selected={this.props.selectedRequest && this.props.selectedRequest.id === request.id}
+        selected={selectedRequest && selectedRequest.id === request.id}
+        onSelectRequest={onSelectRequest}
       />);
     }, this);
 
@@ -83,7 +82,8 @@ export default class RequestList extends React.Component {
 
 RequestList.propTypes = {
   requests: React.PropTypes.array,
-  selectedRequest: React.PropTypes.object
+  selectedRequest: React.PropTypes.object,
+  onSelectRequest: React.PropTypes.func
 };
 
 pure(RequestList);

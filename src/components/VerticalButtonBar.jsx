@@ -3,45 +3,32 @@ import {OverlayTrigger, Tooltip} from 'react-bootstrap';
 import classNames from 'classnames';
 import pure from '../lib/pure';
 
-import requestActions from '../actions/request-actions';
-import configActions from '../actions/config-actions';
-
 export default class VerticalButtonBar extends React.Component {
-  onClearClick() {
-    requestActions.clear();
-  }
-
-  onTogglePauseClick() {
-    requestActions.togglePause();
-  }
-
-  onToggleConnectClick() {
-    configActions.toggleConnect();
-  }
-
   render() {
+    const {onClear, onToggleConnect, onTogglePause, paused, includeConnect} = this.props;
+
     const pauseClasses = classNames({
       'fa': true,
       'fa-pause': true,
-      'selected': this.props.paused
+      'selected': paused
     });
 
     const connectClasses = classNames({
       'fa': true,
       'fa-server': true,
-      'selected': this.props.config.includeConnect
+      'selected': includeConnect
     });
 
     return (
       <ul className="button-toolbar">
         <OverlayTrigger placement="right" overlay={<Tooltip>Clear requests</Tooltip>}>
-          <li className="fa fa-ban" onClick={() => this.onClearClick()} />
+          <li className="fa fa-ban" onClick={() => onClear()} />
         </OverlayTrigger>
         <OverlayTrigger placement="right" overlay={<Tooltip>Pause capture</Tooltip>}>
-          <li className={pauseClasses} onClick={() => this.onTogglePauseClick()} />
+          <li className={pauseClasses} onClick={() => onTogglePause()} />
         </OverlayTrigger>
         <OverlayTrigger placement="right" overlay={<Tooltip>Display CONNECT requests</Tooltip>}>
-          <li className={connectClasses} onClick={() => this.onToggleConnectClick()} />
+          <li className={connectClasses} onClick={() => onToggleConnect()} />
         </OverlayTrigger>
       </ul>
     );
@@ -50,7 +37,10 @@ export default class VerticalButtonBar extends React.Component {
 
 VerticalButtonBar.propTypes = {
   paused: React.PropTypes.bool,
-  config: React.PropTypes.object
+  includeConnect: React.PropTypes.bool,
+  onClear: React.PropTypes.func,
+  onToggleConnect: React.PropTypes.func,
+  onTogglePause: React.PropTypes.func
 };
 
 pure(VerticalButtonBar);

@@ -1,17 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
 import pure from '../lib/pure';
-import requestActions from '../actions/request-actions';
 
 const ITEM_HEIGHT = 50;
 
 export default class RequestListItem extends React.Component {
-  handleClick() {
-    requestActions.selectRequest(this.props.request);
-  }
-
   render() {
-    const request = this.props.request;
+    const {onSelectRequest, request} = this.props;
     const classes = classNames({
       'request-item': true,
       'selected-request': this.props.selected,
@@ -23,9 +18,11 @@ export default class RequestListItem extends React.Component {
     const style = {height: ITEM_HEIGHT + 'px'};
 
     return (
-      <li className={classes} style={style} onClick={() => this.handleClick()}>
+      <li className={classes} style={style} onClick={() => onSelectRequest(request)}>
         <div className="request-properties">
-          <span className="request-status-code">{request.method === 'CONNECT' ? request.method : request.statusCode}</span>
+          <span className="request-status-code">
+            {request.method === 'CONNECT' ? request.method : request.statusCode}
+          </span>
           <span className="request-method">{request.method === 'CONNECT' ? '' : request.method}</span>
           <span className="request-protocol">{request.isSSL ? 'https' : 'http'}</span>
           <span className="request-host">{request.host + (request.port ? ':' + request.port : '')}</span>
@@ -39,6 +36,7 @@ export default class RequestListItem extends React.Component {
 RequestListItem.propTypes = {
   request: React.PropTypes.object,
   selected: React.PropTypes.bool,
+  onSelectRequest: React.PropTypes.func
 };
 
 pure(RequestListItem);
