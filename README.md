@@ -3,7 +3,7 @@ PhoenixMatrix web development proxy
 
 [![Join the chat at https://gitter.im/Phoenixmatrix/phoenixmatrix-proxy](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Phoenixmatrix/phoenixmatrix-proxy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-_v0.2.3 technical preview_
+_v0.2.4 technical preview_
 
 Web debugging proxy in the spirit of Fiddler and Charles Proxy, written in JavaScript with [Electron Shell](http://electron.atom.io/)
 and node.
