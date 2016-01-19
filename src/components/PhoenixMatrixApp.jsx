@@ -11,6 +11,11 @@ import Splitter from './Splitter';
 import {loadConfig, toggleConnect} from '../actions/config';
 import {setFilter, selectRequest, pushRequest, togglePause, clear} from '../actions/requests';
 
+import '../../vendor/bootstrap/css/bootstrap.min';
+import '../../vendor/font-awesome/css/font-awesome';
+import '../../stylesheets/splitter';
+import '../../stylesheets/style';
+
 class PhoenixMatrixApp extends React.Component {
   componentWillMount() {
     const {onLoadConfig} = this.props;

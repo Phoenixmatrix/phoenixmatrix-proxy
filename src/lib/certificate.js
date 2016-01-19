@@ -1,38 +1,37 @@
 import fsOrig from 'fs';
 import crypto from 'crypto';
-import { pki, md } from 'node-forge';
+import {pki, md} from 'node-forge';
 import Promise from 'bluebird';
-import moment from 'moment'
+import moment from 'moment';
 
 import mkdirpOrig from 'mkdirp';
 import helpers from './helpers';
-import _ from 'lodash';
 import config from './config';
 
 const async = Promise.coroutine;
 
-let fs = Promise.promisifyAll(fsOrig);
-let mkdirp = Promise.promisify(mkdirpOrig);
+const fs = Promise.promisifyAll(fsOrig);
+const mkdirp = Promise.promisify(mkdirpOrig);
 
-let directory = './certificate/';
-let caCertPath = directory + 'ca.crt';
-let caKeyPath = directory + 'ca.key';
+const directory = './certificate/';
+const caCertPath = directory + 'ca.crt';
+const caKeyPath = directory + 'ca.key';
 
-var domainCertificates = {};
-var ca;
-var getCA = () => ca;
+const domainCertificates = {};
+let ca;
+const getCA = () => ca;
 
 const getSerial = () => crypto.randomBytes(Math.ceil(16 / 2)).toString('hex').slice(0, 16).toUpperCase();
 const keys = pki.rsa.generateKeyPair(2048);
 
-var createCertificateAuthority = async(function* () {
+const createCertificateAuthority = async(function* () {
   const certificate = pki.createCertificate();
   certificate.publicKey = keys.publicKey;
   certificate.serialNumber = getSerial();
   certificate.validity.notBefore = new Date();
   certificate.validity.notAfter = new Date();
   certificate.validity.notAfter.setFullYear(certificate.validity.notBefore.getFullYear() + 1);
-  var attrs = [{
+  const attrs = [{
     name: 'commonName',
     value: 'phoenixmatrix_do_not_trust'
   }, {
