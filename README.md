@@ -12,6 +12,9 @@ Tested on MacOSX El Captan, Windows 8.1/10 and Ubuntu 14. Expected to break ofte
 
 ## Release notes
 
+**v0.2.5**
+* Migrated to Webpack and some cleanup. Turns out I'm so addicted to Webpack I can't avoid it even when I have CommonJS available.
+
 **v0.2.4**
 * Refactor to Redux, making future improvement easier to implement.
 * Still very messy from all the previous transitions, and not currently using Redux best practice: you probably don't want to copy this code :)

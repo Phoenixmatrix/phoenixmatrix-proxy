@@ -1,6 +1,6 @@
 {
   "name": "phoenixmatrix",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "A cross platform proxy for web developer that supports https",
   "main": "index.js",
   "scripts": {
