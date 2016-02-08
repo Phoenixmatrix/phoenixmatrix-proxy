@@ -1,13 +1,15 @@
+'use strict';
+
 /* eslint no-console: 0 */
 
-import globalShortcut from 'global-shortcut';
+const globalShortcut = require('global-shortcut');
 
-process.on('error', function(err) {
+process.on('error', function (err) {
   console.log(err);
 });
 
-import app from 'app';
-import BrowserWindow from 'browser-window';
+const app = require('app');
+const BrowserWindow = require('browser-window');
 
 let mainWindow;
 
@@ -17,15 +19,15 @@ app.on('window-all-closed', () => {
   }
 });
 
-app.on('ready', function() {
-  globalShortcut.register('CommandOrControl+Shift+i',() => {
+app.on('ready', function () {
+  globalShortcut.register('CommandOrControl+Shift+i', () => {
     const w = BrowserWindow.getFocusedWindow();
     if (w) {
       w.toggleDevTools();
     }
   });
 
-  mainWindow = new BrowserWindow({width: 1000, height: 800, icon: "./icon.png"});
+  mainWindow = new BrowserWindow({width: 1000, height: 800, icon: './icon.png'});
   mainWindow.setMenu(null);
 
   mainWindow.loadURL('file://' + __dirname + '/../index.html');
