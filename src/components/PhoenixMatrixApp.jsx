@@ -11,10 +11,8 @@ import Splitter from './Splitter';
 import {loadConfig, toggleConnect} from '../actions/config';
 import {setFilter, selectRequest, pushRequest, togglePause, clear} from '../actions/requests';
 
-import '../../vendor/bootstrap/css/bootstrap.min';
 import '../../vendor/font-awesome/css/font-awesome';
-import '../../stylesheets/splitter';
-import '../../stylesheets/style';
+import styles from '../../stylesheets/main';
 
 class PhoenixMatrixApp extends React.Component {
   componentWillMount() {
@@ -47,7 +45,7 @@ class PhoenixMatrixApp extends React.Component {
     return (
       <div className="view-wrapper">
         {proxy}
-        <div className="main-section">
+        <div className={styles.mainSection}>
           <Header onFilterChange={onFilterChange}/>
           <Splitter orientation="horizontal" initialPosition={400}>
             <div className="leftPane" minSize={275}>

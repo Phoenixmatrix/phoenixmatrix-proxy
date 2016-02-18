@@ -16,7 +16,7 @@ export default class Header extends React.Component {
   render() {
     return (
       <div className="header-section navbar navbar-inverse navbar-fixed-top">
-        <span className="navbar-brand">PhoenixMatrix web debugging proxy v0.1 Preview</span>
+        <span className="navbar-brand">{'PhoenixMatrix web debugging proxy v0.2.5 Preview'}</span>
         <form className="navbar-form navbar-right">
           <input
             ref="searchInput"

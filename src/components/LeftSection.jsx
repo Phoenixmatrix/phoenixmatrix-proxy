@@ -3,6 +3,8 @@ import pure from '../lib/pure';
 import VerticalButtonBar from './VerticalButtonBar';
 import RequestList from './RequestList';
 
+import styles from '../../stylesheets/main';
+
 export default class LeftSection extends React.Component {
   render() {
     const {
@@ -17,7 +19,7 @@ export default class LeftSection extends React.Component {
     } = this.props;
 
     return (
-      <div className="left-section">
+      <div className={styles.leftSection}>
         <VerticalButtonBar
           paused={paused}
           includeConnect={includeConnect}

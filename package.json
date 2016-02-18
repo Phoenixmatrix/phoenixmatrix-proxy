@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "electron .",
-    "build": "webpack --progress -c",
-    "build:hot": "webpack --progress -c -w"
+    "build": "webpack --progress",
+    "build:hot": "webpack-dev-server --inline --hot"
   },
   "author": "Francois Ward",
   "license": "MIT",
@@ -19,6 +19,7 @@
     "babel-polyfill": "^6.3.14",
     "babel-preset-es2015-node5": "^1.1.1",
     "babel-preset-react": "^6.3.13",
+    "babel-preset-react-hmre": "^1.1.0",
     "babel-preset-stage-1": "^6.3.13",
     "babel-runtime": "^6.3.19",
     "bluebird": "=2.3.11",
@@ -47,11 +48,15 @@
     "run-sequence": "^1.0.2",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
-    "webpack": "^1.12.10"
+    "webpack": "^1.12.10",
+    "webpack-hot-middleware": "^2.7.1"
   },
   "devDependencies": {
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^2.1.1",
-    "eslint-plugin-react": "^3.13.1"
+    "eslint-plugin-react": "^3.13.1",
+    "react-transform-hmr": "^1.0.2",
+    "webpack-dev-server": "^1.14.1",
+    "webpack-hot-middleware": "^2.7.1"
   }
 }
