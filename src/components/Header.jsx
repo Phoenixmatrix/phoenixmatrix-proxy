@@ -3,6 +3,8 @@ import _ from 'lodash';
 import React from 'react';
 import pure from '../lib/pure';
 
+import styles from '../../stylesheets/header';
+
 export default class Header extends React.Component {
   componentWillMount() {
     const {onFilterChange} = this.props;
@@ -15,13 +17,12 @@ export default class Header extends React.Component {
 
   render() {
     return (
-      <div className="header-section navbar navbar-inverse navbar-fixed-top">
-        <span className="navbar-brand">{'PhoenixMatrix web debugging proxy v0.2.5 Preview'}</span>
-        <form className="navbar-form navbar-right">
+      <div className={styles.headerSection}>
+        <span>{'PhoenixMatrix web debugging proxy v0.2.5 Preview'}</span>
+        <form className={styles.filterForm}>
           <input
             ref="searchInput"
             type="text"
-            className="form-control"
             placeholder="Search..."
             onChange={(e) => this.onChange(e)}
           />

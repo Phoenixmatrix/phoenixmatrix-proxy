@@ -3,6 +3,8 @@ import {OverlayTrigger, Tooltip} from 'react-bootstrap';
 import classNames from 'classnames';
 import pure from '../lib/pure';
 
+import styles from '../../stylesheets/toolbar';
+
 export default class VerticalButtonBar extends React.Component {
   render() {
     const {onClear, onToggleConnect, onTogglePause, paused, includeConnect} = this.props;
@@ -10,19 +12,21 @@ export default class VerticalButtonBar extends React.Component {
     const pauseClasses = classNames({
       'fa': true,
       'fa-pause': true,
-      'selected': paused
+      [styles.selected]: paused,
+      [styles.li]: true
     });
 
     const connectClasses = classNames({
       'fa': true,
       'fa-server': true,
-      'selected': includeConnect
+      [styles.selected]: includeConnect,
+      [styles.li]: true
     });
 
     return (
-      <ul className="button-toolbar">
+      <ul className={styles.buttonToolbar}>
         <OverlayTrigger placement="right" overlay={<Tooltip>Clear requests</Tooltip>}>
-          <li className="fa fa-ban" onClick={() => onClear()} />
+          <li className={`fa fa-ban ${styles.li}`} onClick={() => onClear()} />
         </OverlayTrigger>
         <OverlayTrigger placement="right" overlay={<Tooltip>Pause capture</Tooltip>}>
           <li className={pauseClasses} onClick={() => onTogglePause()} />

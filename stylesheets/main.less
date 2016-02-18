@@ -5,6 +5,10 @@
     margin: 0px;
     overflow: hidden;
   }
+
+  * {
+    box-sizing: border-box;
+  }
 }
 
 .mainSection {
@@ -13,34 +17,8 @@
 }
 
 .leftSection {
-  width: 100%;
   position: absolute;
   overflow: hidden;
-  top: 50px;
+  top: 15px;
   bottom: 20px;
-
-  .button-toolbar {
-    width: 80px;
-    background-color: #f8f8f8;
-    border-right: 1px solid #a9a9a9;
-    height: 100%;
-    float: left;
-    display: block;
-    padding-left: 0px;
-    li {
-      cursor: pointer;
-      display: block;
-      height: 80px;
-      padding: 25px;
-      font-size: 30px;
-      border-bottom: 1px solid darkgray;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: auto;
-
-      &.selected  {
-        background-color: red;
-        color: #fff;
-      }
-    }
-  }
 }
