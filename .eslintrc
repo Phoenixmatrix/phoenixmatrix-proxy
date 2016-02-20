@@ -19,6 +19,7 @@
     "no-undef": 2,
     "strict": 0,
     "react/jsx-curly-spacing": [2, "never"],
+    "jsx-quotes": [2, "prefer-single"],
     "no-unused-expressions": 0,
     "indent": [2, 2, {"SwitchCase": 0}]
   },

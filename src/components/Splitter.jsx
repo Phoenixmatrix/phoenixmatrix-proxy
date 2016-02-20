@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import pure from '../lib/pure';
 
+import styles from '../../stylesheets/splitter';
+
 export default class Splitter extends React.Component {
   constructor(props) {
     super(props);
@@ -71,9 +73,9 @@ export default class Splitter extends React.Component {
     const horizontal = this.props.orientation === 'horizontal';
 
     const classes = classNames({
-      'split-panes': true,
-      horizontal,
-      vertical: !horizontal
+      [styles.splitPanes]: true,
+      [styles.horizontal]: horizontal,
+      [styles.vertical]: !horizontal
     });
 
     const children = this.props.children;
@@ -96,10 +98,10 @@ export default class Splitter extends React.Component {
     }
 
     return (
-      <div className={classes} ref="container">
-        <div className="split-pane1" ref="pane1" style={pane1Styles} minSize={pane1min}>{pane1}</div>
-        <div className="split-handler" style={handlerStyles} onMouseDown={(e) => this.onMouseDown(e)}></div>
-        <div className="split-pane2" ref="pane2" style={pane2Styles} minSize={pane2min}>{pane2}</div>
+      <div className={classes} ref='container'>
+        <div className={styles.splitPane1} ref='pane1' style={pane1Styles} minSize={pane1min}>{pane1}</div>
+        <div className={styles.splitHandler} style={handlerStyles} onMouseDown={(e) => this.onMouseDown(e)}></div>
+        <div className={styles.splitPane2} ref='pane2' style={pane2Styles} minSize={pane2min}>{pane2}</div>
       </div>
     );
   }
@@ -111,6 +113,5 @@ Splitter.propTypes = {
   initialPosition: React.PropTypes.number,
   children: React.PropTypes.node
 };
-
 
 pure(Splitter);

@@ -18,14 +18,19 @@ export default class Header extends React.Component {
   render() {
     return (
       <div className={styles.headerSection}>
-        <span>{'PhoenixMatrix web debugging proxy v0.2.5 Preview'}</span>
+        <h1 className={styles.title}>{'PhoenixMatrix web debugging proxy v0.2.5 Preview'}</h1>
         <form className={styles.filterForm}>
           <input
-            ref="searchInput"
-            type="text"
-            placeholder="Search..."
+            id='filterInput'
+            className={styles.filterInput}
+            ref='searchInput'
+            type='text'
+            placeholder='Search...'
             onChange={(e) => this.onChange(e)}
           />
+          <label htmlFor='filterInput' className={styles.filterInputLabel}>
+            <span className='fa fa-search'></span>
+          </label>
         </form>
       </div>
     );

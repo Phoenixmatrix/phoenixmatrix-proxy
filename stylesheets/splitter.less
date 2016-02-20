@@ -1,43 +1,50 @@
-.split-panes 
+@splitPosition: 460px;
+
+.splitPanes
 {
   left: 0px;
   right: 0px;
   top: 0px;
   bottom: 0px;
   position: absolute;
+  top: 45px;
+  bottom: 20px;
 }
 
-.split-panes > .split-handler 
+.splitPanes > .splitHandler
 {
   background: transparent;
   position: absolute;
   z-index: 999;
+  background-color: #428bca;
+  top: 45px;
+  bottom: 20px;
 }
 
-/* Horizontal */ 
+/* Horizontal */
 
-.split-panes.horizontal > .split-handler
+.splitPanes.horizontal > .splitHandler
 {
   width: 4px;
-  top: 0px; 
+  top: 0px;
   left: 50%;
   bottom: 0px;
   cursor: ew-resize;
 }
 
-.split-panes.horizontal > .split-pane1,
-.split-panes.horizontal > .split-pane2
+.splitPanes.horizontal > .splitPane1,
+.splitPanes.horizontal > .splitPane2
 {
   position: absolute;
   height: 100%;
 }
 
-.split-panes.horizontal > .split-pane1
+.splitPanes.horizontal > .splitPane1
 {
-  width: 50%; 
+  width: 50%;
 }
 
-.split-panes.horizontal > .split-pane2
+.splitPanes.horizontal > .splitPane2
 {
   left: 50%;
   right: 0px;
@@ -46,31 +53,45 @@
 
 
 /* Vertical */
-
-.split-panes.vertical > .split-handler
+.splitPanes.vertical > .splitHandler
 {
   height: 4px;
-  top: 50%; 
+  top: 50%;
   left: 0px;
   right: 0px;
   cursor: ns-resize;
 }
 
-.split-panes.vertical > .split-pane1,
-.split-panes.vertical > .split-pane2
+.splitPanes.vertical > .splitPane1,
+.splitPanes.vertical > .splitPane2
 {
   position: absolute;
   width: 100%;
 }
 
-.split-panes.vertical > .split-pane1
+.splitPanes.vertical > .splitPane1
 {
-  height: 50%; 
+  height: 50%;
 }
 
-.split-panes.vertical > .split-pane2
+.splitPanes.vertical > .splitPane2
 {
   top: 50%;
   bottom: 0px;
   border-top: 1px solid #aaa;
+}
+
+.horizontal {
+  & > .splitHandler {
+    left: @splitPosition;
+  }
+
+  & > .splitPane1 {
+    width: @splitPosition;
+  }
+
+  & > .splitPane2 {
+    border-left: 3px solid #428bca;
+    left: @splitPosition;
+  }
 }
