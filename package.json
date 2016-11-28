@@ -1,0 +1,26 @@
+{
+  "name": "phoenixmatrix",
+  "version": "0.3",
+  "description": "A cross platform proxy for web developer with https support",
+  "main": "index.js",
+  "repository": "https://github.com/Phoenixmatrix/phoenixmatrix-proxy.git",
+  "author": "Francois Ward <fward@phoenixmatrix.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "flow": "flow",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "electron": "^1.4.8"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "eslint": "^3.11.0",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "2.2.3",
+    "eslint-plugin-react": "^6.7.1",
+    "flow-bin": "^0.36.0"
+  }
+}
