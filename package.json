@@ -12,7 +12,9 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "electron": "^1.4.8"
+    "electron": "^1.4.8",
+    "node-forge": "^0.6.46",
+    "rxjs": "^5.0.2"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
@@ -21,6 +23,6 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "2.2.3",
     "eslint-plugin-react": "^6.7.1",
-    "flow-bin": "^0.36.0"
+    "flow-bin": "^0.37.4"
   }
 }

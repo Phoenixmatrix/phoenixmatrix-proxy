@@ -4,3 +4,4 @@ certificate
 npm-debug.log
 dist
 git
+yarn-error.log

@@ -3,6 +3,9 @@
 
 [include]
 
+
 [libs]
+/flow-typed/
+/custom-flow-typed/
 
 [options]
