@@ -9,20 +9,40 @@
   "scripts": {
     "start": "electron .",
     "flow": "flow",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "electron": "^1.4.8",
     "node-forge": "^0.6.46",
-    "rxjs": "^5.0.2"
+    "ramda": "^0.23.0",
+    "rxjs": "^5.0.2",
+    "typescript": "^2.1.4"
   },
   "devDependencies": {
+    "@types/jest": "^16.0.3",
+    "@types/node": "^6.0.55",
+    "@types/ramda": "^0.0.2",
     "babel-eslint": "^7.1.1",
     "eslint": "^3.11.0",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "2.2.3",
     "eslint-plugin-react": "^6.7.1",
-    "flow-bin": "^0.37.4"
+    "flow-bin": "^0.37.4",
+    "jest": "^18.1.0",
+    "ts-jest": "^18.0.1"
+  },
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(.*/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ]
   }
 }

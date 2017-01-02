@@ -1,25 +1,23 @@
-// @flow
-
-import fs from 'fs';
-import crypto from 'crypto';
-import {Observable} from 'rxjs';
+import * as fs from 'fs';
+import * as crypto from 'crypto';
 import {pki, md} from 'node-forge';
-
-const directory = './certificate/';
-const caCertPath = directory + 'ca.crt';
-const caKeyPath = directory + 'ca.key';
+import {invoker} from 'ramda';
 
 function getSerial(){
   crypto.randomBytes(Math.ceil(16 / 2)).toString('hex').slice(0, 16).toUpperCase();
 }
 
-function getExpirationDate(startDate) {
-  const date = new Date();
+const setFullYearFrom = invoker()
+
+function getExpirationDate(startDate: Date) {
+  const date = new Date(startDate.getTime);
   date.setFullYear(startDate.getFullYear() + 1);
 }
 
+const generateKeyPair = () => pki.rsa.generateKeyPair(2048);
+
 const keyPair$ = Observable.defer(() => {
-  return Observable.of(pki.rsa.generateKeyPair(2048));
+  return Observable.of();
 })
   .publishReplay(1)
   .refCount();
@@ -27,7 +25,6 @@ const keyPair$ = Observable.defer(() => {
 const certificateAuthority$ = keyPair$
   .map((keys) => {
     const startDate = new Date();
-
     const certificate = pki.createCertificate();
     certificate.publicKey = keys.publicKey;
     certificate.serialNumber = getSerial();
@@ -60,19 +57,13 @@ const certificateAuthority$ = keyPair$
     const ca = pki.certificateToPem(certificate);
     const privateKey = pki.privateKeyToPem(keys.privateKey);
 
-    return {privateKey, ca};
-  }).mergeMap(({privateKey, ca}) => {
-    const writePrivateKey$ = Observable.bindNodeCallback(
-      fs.writeFile(caKeyPath, privateKey)
-    );
-
-    const writeCA$ = Observable.bindNodeCallback(
-      fs.writeFile(caCertPath, ca)
-    );
-
-    return Observable
-      .forkJoin(writePrivateKey$, writeCA$)
-      .map(() => ({privateKey, ca}));
+    return {key: privateKey, certificate: ca};
+  }).mergeMap(({key, certificate}) => {    return Observable
+      .forkJoin(
+        writeFile$(caKeyPath, key),
+        writeFile$(caCertPath, certificate)
+      )
+      .map(() => ({key, certificate}));
   });
 
 
