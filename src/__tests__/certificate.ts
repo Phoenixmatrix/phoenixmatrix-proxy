@@ -1,7 +1,15 @@
-import {} from 'jest';
+const {generateKeyPair, createCA} = require('../certificate');
 
-describe('this is a test', () => {
-  it('it works', () => {
-    expect(true).toBe(true);
+describe('generateKeyPair', () => {
+  it('creates a key pair', () => {
+    const keyPair = generateKeyPair();
+    expect(typeof keyPair.privateKey).toBe('string');
+    expect(typeof keyPair.publicKey).toBe('string');
+  });
+});
+
+describe('createCA', () => {
+  it('it generates a private key and certificate pair', () => {
+
   });
 });

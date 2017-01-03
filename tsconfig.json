@@ -5,5 +5,9 @@
     "jsx": "react",
     "strictNullChecks": true,
     "noImplicitAny": false
-  }
+  },
+  "include": [
+    "src/**/*.ts",
+    "./custom-type-defs/*.d.ts"
+  ]
 }
