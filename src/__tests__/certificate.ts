@@ -1,15 +1,16 @@
-const {generateKeyPair, createCA} = require('../certificate');
+import {generateKeyPair, createCertificateAuthority} from '../certificate';
 
 describe('generateKeyPair', () => {
   it('creates a key pair', () => {
     const keyPair = generateKeyPair();
-    expect(typeof keyPair.privateKey).toBe('string');
-    expect(typeof keyPair.publicKey).toBe('string');
+    expect(keyPair).toMatchSnapshot();
   });
 });
 
-describe('createCA', () => {
+describe('createCertificateAuthority', () => {
   it('it generates a private key and certificate pair', () => {
+    const keyPair = generateKeyPair();
 
+    const certificateAuthority = createCertificateAuthority(keyPair);
   });
 });

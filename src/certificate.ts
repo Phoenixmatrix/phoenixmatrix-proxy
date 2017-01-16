@@ -1,21 +1,21 @@
 import * as crypto from 'crypto';
 import {pki, md} from 'node-forge';
 
-type KeyPair = {privateKey: string, publicKey: string};
 type CertificateAuthorityPair = {privateKey: string, certificate: string};
 
 function getSerial(){
-  crypto.randomBytes(Math.ceil(16 / 2)).toString('hex').slice(0, 16).toUpperCase();
+  return crypto.randomBytes(Math.ceil(16 / 2)).toString('hex').slice(0, 16).toUpperCase();
 }
 
 function getExpirationDate(startDate: Date) {
   const date = new Date(startDate.getTime);
   date.setFullYear(startDate.getFullYear() + 1);
+  return date;
 }
 
-const generateKeyPair = (): string => pki.rsa.generateKeyPair(2048);
+const generateKeyPair = (): pki.KeyPair => pki.rsa.generateKeyPair(2048);
 
-function createCertificateAuthority(keyPair: KeyPair): CertificateAuthorityPair {
+function createCertificateAuthority(keyPair: pki.KeyPair): CertificateAuthorityPair {
     const startDate = new Date();
     const certificate = pki.createCertificate();
     certificate.publicKey = keyPair.publicKey;

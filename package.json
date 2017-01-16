@@ -10,26 +10,26 @@
     "start": "electron .",
     "flow": "flow",
     "lint": "eslint .",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "test": "jest"
   },
   "dependencies": {
-    "electron": "^1.4.8",
-    "node-forge": "^0.6.46",
+    "electron": "^1.4.14",
+    "node-forge": "https://github.com/digitalbazaar/forge.git",
     "ramda": "^0.23.0",
-    "rxjs": "^5.0.2",
-    "typescript": "^2.1.4"
+    "rxjs": "^5.0.3",
+    "typescript": "^2.1.5"
   },
   "devDependencies": {
-    "@types/jest": "^16.0.3",
-    "@types/node": "^6.0.55",
+    "@types/jest": "^16.0.4",
+    "@types/node": "^7.0.0",
+    "@types/node-forge": "^0.6.5",
     "@types/ramda": "^0.0.2",
     "babel-eslint": "^7.1.1",
-    "eslint": "^3.11.0",
-    "eslint-config-airbnb": "^13.0.0",
+    "eslint": "^3.13.1",
+    "eslint-config-airbnb": "^14.0.0",
     "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "2.2.3",
-    "eslint-plugin-react": "^6.7.1",
+    "eslint-plugin-jsx-a11y": "^3.0.2",
+    "eslint-plugin-react": "^6.9.0",
     "flow-bin": "^0.37.4",
     "jest": "^18.1.0",
     "ts-jest": "^18.0.1"

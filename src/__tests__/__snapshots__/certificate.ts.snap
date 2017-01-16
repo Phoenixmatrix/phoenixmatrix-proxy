@@ -1,0 +1,6 @@
+exports[`generateKeyPair creates a key pair 1`] = `
+Object {
+  "privateKey": Object {},
+  "publicKey": Object {},
+}
+`;
