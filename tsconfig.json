@@ -4,7 +4,8 @@
     "module": "commonjs",
     "jsx": "react",
     "strictNullChecks": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "allowJs": true
   },
   "include": [
     "src/**/*.ts",
